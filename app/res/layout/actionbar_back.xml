@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/ActionBar">
+    <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
+            style="@style/ActionBarFATV"
+            android:id="@+id/fabtn_back"
+            android:text="@string/fa_back"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/actionbar_icon"
+            />
+    <TextView
+            style="@style/ActionBarTitle"
+            android:id="@+id/title"
+            android:layout_toRightOf="@id/fabtn_back"
+            android:layout_alignParentRight="true"
+            />
+</RelativeLayout>
