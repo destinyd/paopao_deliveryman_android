@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:weightSum="4"
+                  android:orientation="vertical"
+            >
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:weightSum="2"
+                      android:orientation="horizontal"
+                >
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:orientation="vertical"
+                    >
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:text="今日收入:"
+                        />
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/fa_refresh"
+                        android:background="@android:color/transparent"
+                        android:textSize="30dp"
+                        />
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:orientation="vertical"
+                    >
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:text="总余额:"
+                        />
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/fa_refresh"
+                        android:background="@android:color/transparent"
+                        android:textSize="30dp"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_weight="2">
+            <Button android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@drawable/button"
+                    android:text="为了梦想而赚钱！"
+                    android:textSize="30dp"
+                    android:textColor="@android:color/white"
+                    />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:weightSum="2"
+                      android:orientation="horizontal"
+                >
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                          android:layout_weight="1">
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
+                        android:layout_width="wrap_content" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/fa_exclamation"
+                        android:background="@android:color/transparent"
+                        android:textSize="30dp"
+                        />
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                          android:layout_weight="1">
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
+                        android:layout_width="wrap_content" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/fa_cog"
+                        android:background="@android:color/transparent"
+                        android:textSize="30dp"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.mindpin.android.loadingview.LoadingView
+            android:id="@+id/loading_view"
+            style="@style/LoadingViewWithActionBar"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+</RelativeLayout>

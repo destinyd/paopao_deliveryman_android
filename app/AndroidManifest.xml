@@ -7,15 +7,72 @@
 	<uses-sdk
 		android:minSdkVersion="8"
 		android:targetSdkVersion="20" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+	<!--im start-->
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+	<uses-permission android:name="android.permission.CALL_PHONE" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
+	<!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+	<!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+	<!--im end-->
+
+	<!--baidu start-->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="android.permission.USE_CREDENTIALS" />
+	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+	<!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+	<!--<uses-permission android:name="android.permission.INTERNET" />-->
+	<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+	<!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+	<!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+	<!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+	<!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+	<!--baidu end-->
+
+	<!--baidu loc-->
+	<!-- 这个权限用于进行网络定位-->
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+	<!-- 这个权限用于访问GPS定位-->
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+	<!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+	<!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+	<!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>-->
+	<!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+	<!-- 用于读取手机当前的状态-->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+	<!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>-->
+	<!-- 访问网络，网络定位需要上网-->
+	<!--<uses-permission android:name="android.permission.INTERNET" />-->
+	<!--<!—SD卡读取权限，用户写入离线定位数据&ndash;&gt;-->
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+	<!--允许应用读取低级别的系统日志文件 -->
+	<uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
+	<!--baidu loc end-->
+
 
 	<application
 		android:allowBackup="true"
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
-		android:theme="@style/AppTheme">
+		android:theme="@style/AppTheme"
+		android:name=".PaopaoOfficialDeliverymanApplication">
 
 		<activity
-			android:name=".views.MainActivity"
+			android:name=".views.RealMainActivity"
 			android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -24,6 +81,145 @@
 		</activity>
         <activity android:name=".views.SimpleActivity"/>
 
+		<!--im start-->
+		<activity android:name=".views.im.ChatActivity"
+				  android:launchMode="singleTop"
+				  android:theme="@style/horizontal_slide"
+				  android:windowSoftInputMode="adjustResize"/>
+
+
+		<!-- 添加好友 -->
+		<!--<activity-->
+		<!--android:name=".views.im.AddContactActivity"-->
+		<!--android:theme="@style/horizontal_slide" >-->
+		<!--</activity>-->
+		<!-- 群组详情 -->
+		<activity
+				android:name=".views.im.GroupDetailsActivity"
+				android:theme="@style/horizontal_slide" >
+		</activity>
+		<!-- 群组列表 -->
+		<!--<activity-->
+		<!--android:name=".views.im.GroupsActivity"-->
+		<!--android:theme="@style/horizontal_slide"-->
+		<!--android:windowSoftInputMode="adjustPan" >-->
+		<!--</activity>-->
+		<!-- 新建群组 -->
+		<!--<activity-->
+		<!--android:name=".views.im.NewGroupActivity"-->
+		<!--android:theme="@style/horizontal_slide"-->
+		<!--android:windowSoftInputMode="adjustPan" >-->
+		<!--</activity>-->
+		<!-- 退出群组提示框 -->
+		<activity
+				android:name=".views.im.ExitGroupDialog"
+				android:theme="@style/MyDialogStyleBottom" >
+		</activity>
+		<!-- 群组选人 -->
+		<activity
+				android:name=".views.im.GroupPickContactsActivity"
+				android:theme="@style/horizontal_slide"
+				android:windowSoftInputMode="adjustPan" >
+		</activity>
+		<!-- 地图 -->
+		<activity
+				android:name=".views.im.BaiduMapActivity"
+				android:theme="@style/horizontal_slide" >
+		</activity>
+
+		<!-- 新的朋友邀请消息页面 -->
+		<!--<activity-->
+		<!--android:name=".views.im.NewFriendsMsgActivity"-->
+		<!--android:theme="@style/horizontal_slide" >-->
+		<!--</activity>-->
+		<!-- 转发消息用户列表页面 -->
+		<!--<activity-->
+		<!--android:name=".views.im.ForwardMessageActivity"-->
+		<!--android:screenOrientation="portrait"-->
+		<!--android:theme="@style/horizontal_slide"-->
+		<!--android:windowSoftInputMode="adjustPan" >-->
+		<!--</activity>-->
+		<!-- 自定义的contextmenu -->
+		<!--<activity-->
+		<!--android:name=".views.im.ContextMenu"-->
+		<!--android:theme="@style/MyDialogStyle" >-->
+		<!--</activity>-->
+		<!-- 自定义的alertdialog -->
+		<activity
+				android:name=".views.im.AlertDialog"
+				android:theme="@style/MyDialogStyle" >
+		</activity>
+		<!-- 显示下载大图页面 -->
+		<activity
+				android:name=".views.im.ShowBigImage"
+				android:theme="@style/horizontal_slide" >
+		</activity>
+		<!-- 下载文件 -->
+		<activity
+				android:name=".views.im.ShowNormalFileActivity"
+				android:theme="@style/horizontal_slide" >
+		</activity>
+		<!-- 黑名单 -->
+		<!--<activity-->
+		<!--android:name=".views.im.BlacklistActivity"-->
+		<!--android:theme="@style/horizontal_slide" >-->
+		<!--</activity>-->
+
+		<!-- 公开的群聊列表 -->
+		<!--<activity-->
+		<!--android:name=".views.im.PublicGroupsActivity"-->
+		<!--android:theme="@style/horizontal_slide"-->
+		<!--android:windowSoftInputMode="adjustPan" >-->
+		<!--</activity>-->
+		<!--<activity-->
+		<!--android:name=".views.im.GroupSimpleDetailActivity"-->
+		<!--android:theme="@style/horizontal_slide" >-->
+		<!--</activity>-->
+		<activity
+				android:name=".views.im.ShowVideoActivity"
+				android:theme="@style/horizontal_slide"
+				android:windowSoftInputMode="stateAlwaysHidden" >
+		</activity>
+		<!-- choose video  -->
+		<activity android:name=".views.im.ImageGridActivity"
+				  android:theme="@style/horizontal_slide"
+				  android:windowSoftInputMode="stateAlwaysHidden"
+				>
+		</activity>
+		<activity android:name=".views.im.RecorderVideoActivity"
+				  android:theme="@style/horizontal_slide"
+				  android:windowSoftInputMode="stateAlwaysHidden"
+				  android:screenOrientation="portrait"
+				></activity>
+		<!-- upload error log -->
+		<!--<activity android:name=".views.im.DiagnoseActivity"-->
+		<!--android:theme="@style/horizontal_slide"-->
+		<!--android:windowSoftInputMode="stateAlwaysHidden"-->
+		<!--android:screenOrientation="portrait"-->
+		<!--></activity>-->
+
+		<meta-data
+				android:name="EASEMOB_APPKEY"
+				android:value="realityandapp#paopaotest" />
+
+		<!--baidu-->
+		<meta-data
+				android:name="com.baidu.lbsapi.API_KEY"
+				android:value="ZnjXf1geHwrWmKqtjrQb58rh" />
+
+		<!-- 开机自启动服务 -->
+		<receiver android:name="com.easemob.chat.StartServiceReceiver" >
+			<intent-filter android:priority="1000" >
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</receiver>
+
+		<!-- 声明sdk所需的service -->
+		<service android:name="com.easemob.chat.EMChatService" />
+		<!--im end-->
 	</application>
 
 </manifest>

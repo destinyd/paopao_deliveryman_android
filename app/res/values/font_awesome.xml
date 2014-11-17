@@ -32,4 +32,6 @@
     <string name="fa_plus">&#xf067;</string>
     <string name="fa_minus">&#xf068;</string>
     <string name="fa_comment">&#xf075;</string>
+    <string name="fa_exclamation">&#xf12a;</string>
+    <string name="fa_refresh">&#xf021;</string>
 </resources>
