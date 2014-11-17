@@ -79,9 +79,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-        <activity android:name=".views.SimpleActivity"/>
 
-		<!--im start-->
+        <activity android:name=".views.OrdersActivity"/>
+        <activity android:name=".views.MyOrdersActivity"/>
+
+        <!--im start-->
 		<activity android:name=".views.im.ChatActivity"
 				  android:launchMode="singleTop"
 				  android:theme="@style/horizontal_slide"

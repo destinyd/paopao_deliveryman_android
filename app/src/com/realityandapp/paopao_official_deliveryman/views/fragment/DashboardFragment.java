@@ -1,5 +1,6 @@
 package com.realityandapp.paopao_official_deliveryman.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 //import com.realityandapp.paopao_official_deliveryman.views.ShopGoodsActivity;
+import com.realityandapp.paopao_official_deliveryman.views.MyOrdersActivity;
+import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.base.PaopaoBaseFragment;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
 import roboguice.inject.InjectView;
@@ -126,7 +129,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
                 refresh_today_income();
                 break;
             case R.id.fa_btn_notices:
-                go_to_messages();
+                go_to_notices();
                 break;
             case R.id.fa_btn_orders:
                 go_to_orders();
@@ -142,6 +145,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     private void go_to_my_orders() {
         System.out.println("go_to_my_orders");
+        startActivity(new Intent(getActivity(), MyOrdersActivity.class));
     }
 
     private void come_off_work() {
@@ -151,10 +155,11 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     private void go_to_orders() {
         System.out.println("go_to_orders");
+        startActivity(new Intent(getActivity(), OrdersActivity.class));
     }
 
-    private void go_to_messages() {
-        System.out.println("go_to_messages");
+    private void go_to_notices() {
+        System.out.println("go_to_notices");
     }
 
     private void refresh_today_income() {

@@ -28,7 +28,6 @@ public class HttpApi {
     public static final String DELIVERY_SITE = PaopaoOfficialDeliverymanApplication.get_context().getResources().getString(R.string.deliveryman_http_site);
     public static final String TRADER_SITE = PaopaoOfficialDeliverymanApplication.get_context().getResources().getString(R.string.trader_http_site);
 
-    public static final String USER_ORDERS = USER_SITE + "/orders.json";
     public static final String FORMAT_USER_ORDER = USER_SITE + "/orders/%s.json";
     public static final String SHOPS = SITE + "/shops.json";
     public static final String FORMAT_SHOP_GOODS = SITE + "/shops/%s/goods.json";
@@ -43,13 +42,15 @@ public class HttpApi {
     public static final String USERS = SITE + "/users.json";
     public static final String GET_VERIFY_CODE = SITE + "/users/get_reg_verify_code.json";
     public static final String USER_INFO = USER_SITE + "/userinfo.json";
+    public static final String DELIVERYMAN_ORDERS = DELIVERY_SITE + "/orders.json";
+    public static final String ORDERS = SITE + "/orders.json";
 
     /**
      * http api url end
      */
 
 
-    public static List<IOrder> user_orders() throws AuthErrorException, RequestDataErrorException, NetworkErrorException {
+    public static List<IOrder> orders() throws AuthErrorException, RequestDataErrorException, NetworkErrorException {
         return new RequestProcess<List<IOrder>>() {
 
             @Override
@@ -63,7 +64,7 @@ public class HttpApi {
 
             @Override
             public HttpRequest build_request(AuthenticatorsController auth) {
-                return auth.get_http_request(USER_ORDERS, "GET");
+                return auth.get_http_request(ORDERS, "GET");
             }
         }.request();
     }
@@ -444,6 +445,25 @@ public class HttpApi {
         } catch (Exception ex) {
         }
         return time_left;
+    }
+
+    public static List<IOrder> deliveryman_orders() throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<List<IOrder>>() {
+
+            @Override
+            public List<IOrder> call(RequestResult rr) {
+                System.out.println("orders body:" + rr.body);
+                Type collectionType = new TypeToken<List<Order>>() {
+                }.getType();
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, collectionType);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(DELIVERYMAN_ORDERS, "GET");
+            }
+        }.request();
     }
 
     //////////////////

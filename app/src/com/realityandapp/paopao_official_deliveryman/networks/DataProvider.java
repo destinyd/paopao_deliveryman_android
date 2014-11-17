@@ -56,14 +56,8 @@ public class DataProvider {
         return HttpApi.set_default_address(address_id);
     }
 
-    public static List<IOrder> get_orders() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
-        return HttpApi.user_orders();
-//        List<IOrder> orders = new ArrayList<IOrder>();
-//        for(int i=0; i< 20; i++) {
-//            Order order = new Order();
-//            orders.add(order);
-//        }
-//        return orders;
+    public static List<IOrder> orders() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.orders();
     }
 
     public static void sign_out() {
@@ -105,5 +99,9 @@ public class DataProvider {
 
     public static User user_info() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.user_info();
+    }
+
+    public static List<IOrder> my_orders() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.deliveryman_orders();
     }
 }

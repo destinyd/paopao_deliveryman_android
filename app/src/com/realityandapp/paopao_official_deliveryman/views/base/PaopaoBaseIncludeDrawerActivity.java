@@ -70,7 +70,7 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
 //            case R.id.menu_favorites:
 //                break;
             case R.id.menu_orders:
-//                startActivity(new Intent(this, MyOrdersActivity.class));
+//                startActivity(new Intent(this, OrdersActivity.class));
                 break;
             case R.id.menu_addresses:
 //                startActivity(new Intent(this, AddressesActivity.class));
