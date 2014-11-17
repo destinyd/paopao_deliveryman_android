@@ -35,7 +35,7 @@ public class RealMainActivity extends PaopaoBaseIncludeDrawerActivity {
     FontAwesomeButton fabtn_messages;
     @InjectView(R.id.ll_shops)
     LinearLayout ll_shops;
-    @InjectView(R.id.ll_messages)
+    @InjectView(R.id.fa_btn_messages)
     LinearLayout ll_messages;
 
     private ChatAllHistoryFragment chatHistoryFragment;
