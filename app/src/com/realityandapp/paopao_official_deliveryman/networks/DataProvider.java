@@ -4,6 +4,7 @@ package com.realityandapp.paopao_official_deliveryman.networks;
 import com.google.gson.JsonObject;
 import com.realityandapp.paopao_official_deliveryman.models.User;
 import com.realityandapp.paopao_official_deliveryman.models.http.Cart;
+import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.*;
 
 import java.util.List;
@@ -103,5 +104,9 @@ public class DataProvider {
 
     public static List<IOrder> my_orders() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.deliveryman_orders();
+    }
+
+    public static Funds today_income() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.today_income();
     }
 }

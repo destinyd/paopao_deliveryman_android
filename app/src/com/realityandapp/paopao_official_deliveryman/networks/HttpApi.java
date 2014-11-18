@@ -44,6 +44,7 @@ public class HttpApi {
     public static final String USER_INFO = USER_SITE + "/userinfo.json";
     public static final String DELIVERYMAN_ORDERS = DELIVERY_SITE + "/orders.json";
     public static final String ORDERS = SITE + "/orders.json";
+    public static final String DELIVERYMAN_FUNDS = DELIVERY_SITE + "/funds.json";
 
     /**
      * http api url end
@@ -462,6 +463,23 @@ public class HttpApi {
             @Override
             public HttpRequest build_request(AuthenticatorsController auth) {
                 return auth.get_http_request(DELIVERYMAN_ORDERS, "GET");
+            }
+        }.request();
+    }
+
+    public static Funds today_income() throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<Funds>() {
+
+            @Override
+            public Funds call(RequestResult rr) {
+                System.out.println("orders body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Funds.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(DELIVERYMAN_FUNDS, "GET");
             }
         }.request();
     }

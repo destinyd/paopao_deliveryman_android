@@ -11,12 +11,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
+import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 //import com.realityandapp.paopao_official_deliveryman.views.ShopGoodsActivity;
 import com.realityandapp.paopao_official_deliveryman.views.MyOrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.base.PaopaoBaseFragment;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
+import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView;
 import roboguice.inject.InjectView;
 
 /**
@@ -45,6 +48,11 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     @InjectView(R.id.tv_come_off_work)
     TextView tv_come_off_work;
+    @InjectView(R.id.fatv_today)
+    FontAwesomeTextView fatv_today;
+    @InjectView(R.id.fatv_balance)
+    FontAwesomeTextView fatv_balance;
+    private Funds funds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,7 +134,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
                 refresh_funds();
                 break;
             case R.id.ll_refresh_today_income:
-                refresh_today_income();
+                refresh_funds();
                 break;
             case R.id.fa_btn_notices:
                 go_to_notices();
@@ -162,12 +170,38 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         System.out.println("go_to_notices");
     }
 
-    private void refresh_today_income() {
-        System.out.println("refresh_today_income");
-    }
-
     private void refresh_funds() {
         System.out.println("refresh_funds");
+        new PaopaoAsyncTask<Void>(getActivity()) {
+
+            @Override
+            protected void onPreExecute() throws Exception {
+                loading_view.show();
+            }
+
+            @Override
+            public Void call() throws Exception {
+                funds = DataProvider.today_income();
+                return null;
+            }
+
+            @Override
+            protected void onSuccess(Void aVoid) throws Exception {
+                today_income_to_view();
+            }
+
+            @Override
+            protected void onFinally() throws RuntimeException {
+                super.onFinally();
+                loading_view.hide();
+            }
+        }.execute();
+    }
+
+    private void today_income_to_view() {
+        System.out.println(funds);
+        fatv_today.setText(String.valueOf(funds.get_today()));
+        fatv_balance.setText(String.valueOf(funds.get_balance()));
     }
 
     private void work() {

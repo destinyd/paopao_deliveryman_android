@@ -36,6 +36,7 @@
                         android:text="@string/fa_refresh"
                         android:background="@android:color/transparent"
                         android:textSize="50dp"
+                        android:id="@+id/fatv_today"
                         />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
@@ -54,6 +55,7 @@
                         android:text="@string/fa_refresh"
                         android:background="@android:color/transparent"
                         android:textSize="50dp"
+                        android:id="@+id/fatv_balance"
                         />
             </LinearLayout>
         </LinearLayout>
