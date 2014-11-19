@@ -84,6 +84,7 @@
         <activity android:name=".views.SignInActivity"/>
         <activity android:name=".views.OrdersActivity"/>
         <activity android:name=".views.MyOrdersActivity"/>
+		<activity android:name=".views.OrderActivity"/>
 
         <!--im start-->
 		<activity android:name=".views.im.ChatActivity"

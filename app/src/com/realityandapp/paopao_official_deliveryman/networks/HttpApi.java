@@ -45,6 +45,8 @@ public class HttpApi {
     public static final String DELIVERYMAN_ORDERS = DELIVERY_SITE + "/orders.json";
     public static final String ORDERS = SITE + "/orders.json";
     public static final String DELIVERYMAN_FUNDS = DELIVERY_SITE + "/funds.json";
+    public static final String FORMAT_ACCEPT_ORDER = SITE + "/orders/%s/accept.json";
+    public static final String FORMAT_TAKE_AWAY_ORDER = DELIVERY_SITE + "/orders/%s/take_away.json";
 
     /**
      * http api url end
@@ -480,6 +482,46 @@ public class HttpApi {
             @Override
             public HttpRequest build_request(AuthenticatorsController auth) {
                 return auth.get_http_request(DELIVERYMAN_FUNDS, "GET");
+            }
+        }.request();
+    }
+
+    public static IOrder take_away(final String order_id) throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        System.out.println("order id:" + order_id);
+        return new RequestProcess<IOrder>() {
+
+            @Override
+            public IOrder call(RequestResult rr) {
+                System.out.println("my order body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Order.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(String.format(FORMAT_TAKE_AWAY_ORDER, order_id), "POST")
+                        .accept("application/json")
+                        .send("");
+            }
+        }.request();
+    }
+
+    public static IOrder accept(final String order_id) throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        System.out.println("order id:" + order_id);
+        return new RequestProcess<IOrder>() {
+
+            @Override
+            public IOrder call(RequestResult rr) {
+                System.out.println("my order body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Order.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(String.format(FORMAT_ACCEPT_ORDER, order_id), "POST")
+                        .accept("application/json")
+                        .send("");
             }
         }.request();
     }

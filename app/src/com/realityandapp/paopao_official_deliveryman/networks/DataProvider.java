@@ -109,4 +109,12 @@ public class DataProvider {
     public static Funds today_income() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.today_income();
     }
+
+    public static IOrder take_away(String order_id) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.take_away(order_id);
+    }
+
+    public static IOrder accept(String order_id) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.accept(order_id);
+    }
 }

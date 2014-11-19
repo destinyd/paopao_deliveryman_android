@@ -1,15 +1,22 @@
 package com.realityandapp.paopao_official_deliveryman.views.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import com.github.kevinsawicki.wishlist.SingleTypeAdapter;
+import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.Constants;
 import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.http.Order;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
+import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
+import com.realityandapp.paopao_official_deliveryman.views.OrderActivity;
+import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
 //import com.realityandapp.paopao_official_deliveryman.views.OrderActivity;
 //import com.realityandapp.paopao_official_deliveryman.views.PayActivity;
 
@@ -21,12 +28,14 @@ import java.util.List;
 public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnClickListener {
 
     protected final List<IOrder> goods;
-    protected final Activity activity;
+    protected final OrdersActivity activity;
+    protected final LoadingView loading_view;
 
     public OrdersAdapter(Activity activity,
                          final List<IOrder> items) {
         super(activity, R.layout.orders_list_item);
-        this.activity = activity;
+        this.activity = (OrdersActivity) activity;
+        loading_view = (LoadingView) activity.findViewById(R.id.loading_view);
         goods = items;
         setItems(goods);
     }
@@ -70,9 +79,9 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
     }
 
     private void go_to_order(IOrder order) {
-//        Intent intent = new Intent(activity, OrderActivity.class);
-//        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
-//        activity.startActivityForResult(intent, Constants.Request.ORDER);
+        Intent intent = new Intent(activity, OrderActivity.class);
+        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
+        activity.startActivityForResult(intent, Constants.Request.ORDER);
     }
 
     protected void action_for_order_status(IOrder order) {
@@ -81,12 +90,37 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
         }
     }
 
-    private void accept(IOrder order) {
+    private void accept(final IOrder order) {
         // todo
         System.out.println("accept");
-//        Intent intent = new Intent(activity, PayActivity.class);
-//        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
-//        activity.startActivityForResult(intent, Constants.Request.ORDER);
+        new PaopaoAsyncTask<IOrder>(activity) {
+
+            @Override
+            protected void onPreExecute() throws Exception {
+                loading_view.show();
+            }
+
+            @Override
+            public IOrder call() throws Exception {
+                return DataProvider.accept(order.get_id());
+            }
+
+            @Override
+            protected void onSuccess(IOrder order) throws Exception {
+                Toast.makeText(activity, "成功接受订单", Toast.LENGTH_LONG);
+                refresh_activity();
+            }
+
+            @Override
+            protected void onException(Exception e) throws RuntimeException {
+                super.onException(e);
+                loading_view.hide();
+            }
+        }.execute();
+    }
+
+    protected void refresh_activity() {
+        activity.get_datas();
     }
 
     @Override

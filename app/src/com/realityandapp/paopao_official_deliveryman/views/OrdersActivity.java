@@ -44,7 +44,7 @@ public class OrdersActivity extends PaopaoBaseActivity implements View.OnClickLi
         fabtn_back.setOnClickListener(this);
     }
 
-    private void get_datas() {
+    public void get_datas() {
         new PaopaoAsyncTask<Void>(this) {
 
             @Override
