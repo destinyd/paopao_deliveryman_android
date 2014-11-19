@@ -75,7 +75,7 @@ public class OrdersActivity extends PaopaoBaseActivity implements View.OnClickLi
         orders = DataProvider.orders();
     }
 
-    private void build_view() {
+    protected void build_view() {
         final OrdersAdapter adapter =
                 new OrdersAdapter(this, orders);
         lv_orders.setAdapter(adapter);

@@ -1,7 +1,6 @@
 package com.realityandapp.paopao_official_deliveryman.views.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,8 +20,8 @@ import java.util.List;
  */
 public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnClickListener {
 
-    private final List<IOrder> goods;
-    private final Activity activity;
+    protected final List<IOrder> goods;
+    protected final Activity activity;
 
     public OrdersAdapter(Activity activity,
                          final List<IOrder> items) {
@@ -47,12 +46,9 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
         update_btn_action(item);
     }
 
-    private void update_btn_action(IOrder item) {
-        if (Order.OrderStatus.pending == item.get_status()) {
-            setText(3, "支付");
-            getView(3, Button.class).setVisibility(View.VISIBLE);
-        } else if (Order.OrderStatus.took_away == item.get_status()) {
-            setText(3, "收货");
+    protected void update_btn_action(IOrder item) {
+        if (Order.OrderStatus.paid == item.get_status()) {
+            setText(3, "接受");
             getView(3, Button.class).setVisibility(View.VISIBLE);
         } else {
             getView(3, Button.class).setVisibility(View.INVISIBLE);
@@ -79,24 +75,15 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
 //        activity.startActivityForResult(intent, Constants.Request.ORDER);
     }
 
-    private void action_for_order_status(IOrder order) {
-        if (order.get_status() == Order.OrderStatus.pending) {
-            go_to_pay(order);
-        } else if (order.get_status() == Order.OrderStatus.took_away) {
-            go_to_order_and_show_qrcode(order);
-        } else {
-            // todo for other status
+    protected void action_for_order_status(IOrder order) {
+        if (order.get_status() == Order.OrderStatus.paid) {
+            accept(order);
         }
     }
 
-    private void go_to_order_and_show_qrcode(IOrder order) {
-//        Intent intent = new Intent(activity, OrderActivity.class);
-//        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
-//        intent.putExtra(Constants.Extra.SHOW_QRCORD, true);
-//        activity.startActivityForResult(intent, Constants.Request.ORDER);
-    }
-
-    private void go_to_pay(IOrder order) {
+    private void accept(IOrder order) {
+        // todo
+        System.out.println("accept");
 //        Intent intent = new Intent(activity, PayActivity.class);
 //        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
 //        activity.startActivityForResult(intent, Constants.Request.ORDER);
