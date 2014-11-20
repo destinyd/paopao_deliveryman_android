@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.mindpin.android.loadingview.LoadingView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.realityandapp.paopao_official_deliveryman.Constants;
 import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.http.Order;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.ListViewUtils;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.views.adapter.OrderGoodsDataAdapter;
@@ -81,14 +81,14 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
             @Override
             public Void call() throws Exception {
-                order = DataProvider.my_order(order_id);
+                order = DataProvider.deliveryman_order(order_id);
                 return null;
             }
 
             @Override
             protected void onSuccess(Void aVoid) throws Exception {
                 build_views();
-                if(need_show_scan)
+                if (need_show_scan)
                     show_scan();
             }
 
@@ -113,15 +113,20 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     private void build_submit() {
         btn_submit.setOnClickListener(this);
-        if (order.get_status() == Order.OrderStatus.pending) {
-            btn_submit.setText("支付");
-            btn_submit.setVisibility(View.VISIBLE);
+        if (order.get_status() == Order.OrderStatus.paid) {
+            set_btn_submit("接受");
+        } else if (order.is_accepted()) {
+            set_btn_submit("取货");
         } else if (order.get_status() == Order.OrderStatus.took_away) {
-            btn_submit.setText("收货");
-            btn_submit.setVisibility(View.VISIBLE);
+            set_btn_submit("扫码交货");
         } else {
             btn_submit.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void set_btn_submit(String text) {
+        btn_submit.setText(text);
+        btn_submit.setVisibility(View.VISIBLE);
     }
 
     private void build_actionbar() {
@@ -165,11 +170,11 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     private void build_address() {
         if (order.get_address() == null) {
-            ((View)tv_address.getParent()).setVisibility(View.GONE);
+            ((View) tv_address.getParent()).setVisibility(View.GONE);
         } else {
             tv_contact.setText(String.format(Constants.Format.CONTACT, order.get_address().get_realname(), order.get_address().get_phone()));
             tv_address.setText(order.get_address().get_address());
-            ((View)tv_address.getParent()).setVisibility(View.VISIBLE);
+            ((View) tv_address.getParent()).setVisibility(View.VISIBLE);
         }
     }
 
@@ -209,8 +214,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
                     public void onClick(DialogInterface dialogInterface, int i) {
                         destroy_order();
                     }
-                })
-                ;
+                });
         dialog_confirm = dialog_builder.create();
         dialog_confirm.show();
     }
@@ -223,14 +227,34 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     private void submit() {
         System.out.println("submit");
-        if (order.get_status() == Order.OrderStatus.pending) {
-//            Intent intent = new Intent(this, PayActivity.class);
-//            intent.putExtra(Constants.Extra.ORDER, order);
-//            startActivity(intent);
+        if (order.get_status() == Order.OrderStatus.paid) {
+            // todo accept()
+            accept();
+        } else if (order.is_accepted()) {
+            take_away();
         } else if (Order.OrderStatus.took_away == order.get_status()) {
             show_scan();
-        } else {
         }
+    }
+
+    private void take_away() {
+        System.out.println("take_away");
+        AsyncTasks.take_away(this, order, new AsyncTasks.OnSuccessListener() {
+            @Override
+            public void run() {
+                get_data();
+            }
+        });
+    }
+
+    private void accept() {
+        System.out.println("accept");
+        AsyncTasks.accept(this, order, new AsyncTasks.OnSuccessListener() {
+            @Override
+            public void run() {
+                get_data();
+            }
+        });
     }
 
     private void show_scan() {

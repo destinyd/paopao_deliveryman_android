@@ -47,6 +47,7 @@ public class HttpApi {
     public static final String DELIVERYMAN_FUNDS = DELIVERY_SITE + "/funds.json";
     public static final String FORMAT_ACCEPT_ORDER = SITE + "/orders/%s/accept.json";
     public static final String FORMAT_TAKE_AWAY_ORDER = DELIVERY_SITE + "/orders/%s/take_away.json";
+    public static final String FORMAT_DELIVERYMAN_ORDER = DELIVERY_SITE + "/orders/%s.json";;
 
     /**
      * http api url end
@@ -72,7 +73,7 @@ public class HttpApi {
         }.request();
     }
 
-    public static IOrder my_order(final String id) throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+    public static IOrder deliveryman_order(final String id) throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
         System.out.println("order id:" + id);
         return new RequestProcess<IOrder>() {
 
@@ -85,7 +86,7 @@ public class HttpApi {
 
             @Override
             public HttpRequest build_request(AuthenticatorsController auth) {
-                return auth.get_http_request(String.format(FORMAT_USER_ORDER, id), "GET");
+                return auth.get_http_request(String.format(FORMAT_DELIVERYMAN_ORDER, id), "GET");
             }
         }.request();
     }

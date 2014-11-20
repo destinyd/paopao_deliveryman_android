@@ -25,6 +25,7 @@ public interface IOrder extends IBase {
     public String get_str_status();
     public void set_to_id(String to_id);
     public String get_to_id();
+    public boolean is_accepted();
 
     public interface IOrderStatus {
     }

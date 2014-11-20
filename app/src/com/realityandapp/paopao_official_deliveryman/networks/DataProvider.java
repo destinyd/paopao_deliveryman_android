@@ -33,8 +33,8 @@ public class DataProvider {
         return HttpApi.default_address();
     }
 
-    public static IOrder my_order(String s) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
-        return HttpApi.my_order(s);
+    public static IOrder deliveryman_order(String s) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.deliveryman_order(s);
     }
 
     public static List<IAddress> get_addresses()  throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {

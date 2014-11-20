@@ -14,6 +14,7 @@ import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.http.Order;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.views.OrderActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
@@ -91,32 +92,13 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
     }
 
     private void accept(final IOrder order) {
-        // todo
         System.out.println("accept");
-        new PaopaoAsyncTask<IOrder>(activity) {
-
+        AsyncTasks.accept(activity, order, new AsyncTasks.OnSuccessListener() {
             @Override
-            protected void onPreExecute() throws Exception {
-                loading_view.show();
-            }
-
-            @Override
-            public IOrder call() throws Exception {
-                return DataProvider.accept(order.get_id());
-            }
-
-            @Override
-            protected void onSuccess(IOrder order) throws Exception {
-                Toast.makeText(activity, "成功接受订单", Toast.LENGTH_LONG);
+            public void run() {
                 refresh_activity();
             }
-
-            @Override
-            protected void onException(Exception e) throws RuntimeException {
-                super.onException(e);
-                loading_view.hide();
-            }
-        }.execute();
+        });
     }
 
     protected void refresh_activity() {

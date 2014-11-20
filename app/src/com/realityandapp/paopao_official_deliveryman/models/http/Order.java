@@ -120,6 +120,11 @@ public class Order implements IOrder {
     }
 
     @Override
+    public boolean is_accepted() {
+        return Order.OrderStatus.accepted == get_status() || Order.OrderStatus.system_accepted == get_status();
+    }
+
+    @Override
     public String get_id() {
         return id;
     }
