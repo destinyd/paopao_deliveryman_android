@@ -4,6 +4,7 @@ package com.realityandapp.paopao_official_deliveryman.networks;
 import com.google.gson.JsonObject;
 import com.realityandapp.paopao_official_deliveryman.models.User;
 import com.realityandapp.paopao_official_deliveryman.models.http.Cart;
+import com.realityandapp.paopao_official_deliveryman.models.http.DeliverymanInfo;
 import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.*;
 
@@ -116,5 +117,17 @@ public class DataProvider {
 
     public static IOrder accept(String order_id) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.accept(order_id);
+    }
+
+    public static DeliverymanInfo deliveryman_info() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.deliveryman_info();
+    }
+
+    public static Boolean work() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.work();
+    }
+
+    public static Boolean rest() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.rest();
     }
 }

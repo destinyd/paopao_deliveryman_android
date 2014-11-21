@@ -1,5 +1,7 @@
 package com.realityandapp.paopao_official_deliveryman.views.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.realityandapp.paopao_official_deliveryman.models.http.DeliverymanInfo;
 import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
+import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 //import com.realityandapp.paopao_official_deliveryman.views.ShopGoodsActivity;
 import com.realityandapp.paopao_official_deliveryman.views.MyOrdersActivity;
@@ -53,6 +58,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @InjectView(R.id.fatv_balance)
     FontAwesomeTextView fatv_balance;
     private Funds funds;
+    private DeliverymanInfo deliveryman_info;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,11 +68,12 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sync_get_deliveryman_info();
         bind_views();
-        pending();
+//        show_rest();
     }
 
-    private void pending() {
+    private void show_rest() {
         setTitle("控制面板(待命)");
         rl_working.setVisibility(View.GONE);
         rl_pending.setVisibility(View.VISIBLE);
@@ -143,7 +150,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
                 go_to_orders();
                 break;
             case R.id.tv_come_off_work:
-                come_off_work();
+                alert_rest();
                 break;
             case R.id.rl_working:
                 go_to_my_orders();
@@ -151,14 +158,56 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         }
     }
 
+    private void alert_rest() {
+        // todo 应该还要判断是否有未完成的单子
+        new AlertDialog.Builder(getActivity())
+                .setTitle("确定下班了吗？")
+                .setNegativeButton("取消", null)
+                .setNeutralButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        rest();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void work() {
+        System.out.println("work");
+        new AsyncTasks.LoadingAsyncTask<Boolean>(getActivity()) {
+            @Override
+            public Boolean call() throws Exception {
+                return DataProvider.work();
+            }
+
+            @Override
+            protected void onSuccess(Boolean aBoolean) throws Exception {
+                show_work();
+                super.onSuccess(aBoolean);
+            }
+        }.execute();
+    }
+
     private void go_to_my_orders() {
         System.out.println("go_to_my_orders");
         startActivity(new Intent(getActivity(), MyOrdersActivity.class));
     }
 
-    private void come_off_work() {
-        System.out.println("come_off_work");
-        pending();
+    private void rest() {
+        System.out.println("rest");
+        new AsyncTasks.LoadingAsyncTask<Boolean>(getActivity()) {
+            @Override
+            public Boolean call() throws Exception {
+                return DataProvider.rest();
+            }
+
+            @Override
+            protected void onSuccess(Boolean aBoolean) throws Exception {
+                show_rest();
+                super.onSuccess(aBoolean);
+            }
+        }.execute();
     }
 
     private void go_to_orders() {
@@ -204,10 +253,44 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         fatv_balance.setText(String.valueOf(funds.get_balance()));
     }
 
-    private void work() {
-        System.out.println("work");
+    private void show_work() {
+        System.out.println("show_work");
         setTitle("控制面板(工作中)");
         rl_working.setVisibility(View.VISIBLE);
         rl_pending.setVisibility(View.GONE);
+    }
+
+    private void sync_get_deliveryman_info() {
+        new PaopaoAsyncTask<Void>(getActivity()) {
+
+            @Override
+            protected void onPreExecute() throws Exception {
+                loading_view.show();
+            }
+
+            @Override
+            public Void call() throws Exception {
+                deliveryman_info = DataProvider.deliveryman_info();
+                return null;
+            }
+
+            @Override
+            protected void onSuccess(Void aVoid) throws Exception {
+                bind_deliveryman_info();
+            }
+
+            @Override
+            protected void onFinally() throws RuntimeException {
+                super.onFinally();
+                loading_view.hide();
+            }
+        }.execute();
+    }
+
+    private void bind_deliveryman_info() {
+        if (deliveryman_info.is_working())
+            show_work();
+        else
+            show_rest();
     }
 }

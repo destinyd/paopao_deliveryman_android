@@ -72,6 +72,26 @@ public class AsyncTasks {
         }
     }
 
+    static public abstract class LoadingAsyncTask<T> extends PaopaoAsyncTask<T>{
+        final LoadingView loading_view;
+
+        protected LoadingAsyncTask(Activity activity) {
+            super(activity);
+            loading_view = (LoadingView) activity.findViewById(R.id.loading_view);
+        }
+
+        @Override
+        protected void onPreExecute() throws Exception {
+            loading_view.show();
+        }
+
+        @Override
+        protected void onFinally() throws RuntimeException {
+            super.onFinally();
+            loading_view.hide();
+        }
+    }
+
     static public interface OnSuccessListener{
         void run();
     };

@@ -48,6 +48,9 @@ public class HttpApi {
     public static final String FORMAT_ACCEPT_ORDER = SITE + "/orders/%s/accept.json";
     public static final String FORMAT_TAKE_AWAY_ORDER = DELIVERY_SITE + "/orders/%s/take_away.json";
     public static final String FORMAT_DELIVERYMAN_ORDER = DELIVERY_SITE + "/orders/%s.json";;
+    public static final String DELIVERYMAN_INFO = DELIVERY_SITE + "/info";
+    public static final String DELIVERYMAN_WORK = DELIVERY_SITE + "/work";
+    public static final String DELIVERYMAN_REST = DELIVERY_SITE + "/rest";
 
     /**
      * http api url end
@@ -493,7 +496,7 @@ public class HttpApi {
 
             @Override
             public IOrder call(RequestResult rr) {
-                System.out.println("my order body:" + rr.body);
+                System.out.println("take_away body:" + rr.body);
                 Gson gson = new Gson();
                 return gson.fromJson(rr.body, Order.class);
             }
@@ -513,7 +516,7 @@ public class HttpApi {
 
             @Override
             public IOrder call(RequestResult rr) {
-                System.out.println("my order body:" + rr.body);
+                System.out.println("accept body:" + rr.body);
                 Gson gson = new Gson();
                 return gson.fromJson(rr.body, Order.class);
             }
@@ -521,6 +524,61 @@ public class HttpApi {
             @Override
             public HttpRequest build_request(AuthenticatorsController auth) {
                 return auth.get_http_request(String.format(FORMAT_ACCEPT_ORDER, order_id), "POST")
+                        .accept("application/json")
+                        .send("");
+            }
+        }.request();
+    }
+
+    public static DeliverymanInfo deliveryman_info() throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<DeliverymanInfo>() {
+
+            @Override
+            public DeliverymanInfo call(RequestResult rr) {
+                System.out.println("deliveryman_info body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, DeliverymanInfo.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(DELIVERYMAN_INFO, "GET");
+            }
+        }.request();
+    }
+
+    public static Boolean work() throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<Boolean>() {
+
+            @Override
+            public Boolean call(RequestResult rr) {
+                System.out.println("work body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Boolean.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(DELIVERYMAN_WORK, "POST")
+                        .accept("application/json")
+                        .send("");
+            }
+        }.request();
+    }
+
+    public static Boolean rest() throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<Boolean>() {
+
+            @Override
+            public Boolean call(RequestResult rr) {
+                System.out.println("work body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Boolean.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(DELIVERYMAN_REST, "POST")
                         .accept("application/json")
                         .send("");
             }
