@@ -70,7 +70,6 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         super.onViewCreated(view, savedInstanceState);
         sync_get_deliveryman_info();
         bind_views();
-//        show_rest();
     }
 
     private void show_rest() {
@@ -87,48 +86,6 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         fa_btn_orders.setOnClickListener(this);
         tv_come_off_work.setOnClickListener(this);
         rl_working.setOnClickListener(this);
-    }
-
-    public void get_datas() {
-        new PaopaoAsyncTask<Void>(getActivity()) {
-
-            @Override
-            protected void onPreExecute() throws Exception {
-                loading_view.show();
-            }
-
-            @Override
-            public Void call() throws Exception {
-//                shops = DataProvider.get_shops();
-                return null;
-            }
-
-            @Override
-            protected void onSuccess(Void aVoid) throws Exception {
-                build_view();
-            }
-
-            @Override
-            protected void onFinally() throws RuntimeException {
-                super.onFinally();
-                loading_view.hide();
-            }
-        }.execute();
-    }
-
-    private void build_view() {
-//        ShopsAdapter adapter =
-//                new ShopsAdapter(getActivity().getLayoutInflater(), shops);
-//        gv_shops.setAdapter(adapter);
-//        gv_shops.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getActivity(), ShopGoodsActivity.class);
-//                intent.putExtra(Constants.Extra.SHOP_ID, shops.get(i).get_id());
-//                intent.putExtra(Constants.Extra.SHOP_NAME, shops.get(i).get_name());
-//                startActivity(intent);
-//            }
-//        });
     }
 
     @Override
@@ -221,13 +178,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     private void refresh_funds() {
         System.out.println("refresh_funds");
-        new PaopaoAsyncTask<Void>(getActivity()) {
-
-            @Override
-            protected void onPreExecute() throws Exception {
-                loading_view.show();
-            }
-
+        new AsyncTasks.LoadingAsyncTask<Void>(getActivity()) {
             @Override
             public Void call() throws Exception {
                 funds = DataProvider.today_income();
@@ -237,12 +188,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
             @Override
             protected void onSuccess(Void aVoid) throws Exception {
                 today_income_to_view();
-            }
-
-            @Override
-            protected void onFinally() throws RuntimeException {
-                super.onFinally();
-                loading_view.hide();
+                super.onSuccess(aVoid);
             }
         }.execute();
     }
@@ -261,13 +207,8 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     }
 
     private void sync_get_deliveryman_info() {
-        new PaopaoAsyncTask<Void>(getActivity()) {
-
-            @Override
-            protected void onPreExecute() throws Exception {
-                loading_view.show();
-            }
-
+        // todo maybe go to launcher is better
+        new AsyncTasks.LoadingAsyncTask<Void>(getActivity()) {
             @Override
             public Void call() throws Exception {
                 deliveryman_info = DataProvider.deliveryman_info();
@@ -277,12 +218,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
             @Override
             protected void onSuccess(Void aVoid) throws Exception {
                 bind_deliveryman_info();
-            }
-
-            @Override
-            protected void onFinally() throws RuntimeException {
-                super.onFinally();
-                loading_view.hide();
+                super.onSuccess(aVoid);
             }
         }.execute();
     }
