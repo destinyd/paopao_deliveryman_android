@@ -130,4 +130,8 @@ public class DataProvider {
     public static Boolean rest() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.rest();
     }
+
+    public static String im_nickname(String im_id) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.im_nickname(im_id);
+    }
 }

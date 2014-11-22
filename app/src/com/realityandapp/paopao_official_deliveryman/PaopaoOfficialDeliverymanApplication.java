@@ -19,9 +19,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.realityandapp.paopao_official_deliveryman.models.User;
+import com.realityandapp.paopao_official_deliveryman.models.http.DeliverymanInfo;
 import com.realityandapp.paopao_official_deliveryman.models.http.im.DbOpenHelper;
 import com.realityandapp.paopao_official_deliveryman.models.http.im.IMUser;
 import com.realityandapp.paopao_official_deliveryman.models.http.im.IMUserDao;
+import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.networks.HttpApi;
 import com.realityandapp.paopao_official_deliveryman.utils.im.PreferenceUtils;
 import com.realityandapp.paopao_official_deliveryman.views.im.ChatActivity;
 
@@ -52,6 +55,7 @@ public class PaopaoOfficialDeliverymanApplication extends Application {
     public static String currentUserNick = "";
     private LocationClient mLocationClient;
     private GeofenceClient mGeofenceClient;
+    private DeliverymanInfo deliveryman_info = null;
 
     @Override
     public void onCreate() {
@@ -82,13 +86,11 @@ public class PaopaoOfficialDeliverymanApplication extends Application {
     }
 
     public void im_login() {
-        User user = User.current();
-        String im_id = md5(user.name + user.phone);
-        String im_password = user.im_uuid;
-        System.out.println("im_id:" + im_id);
-        System.out.println("im_password:" + im_password);
-        currentUserNick = user.name;
-        im_login(im_id, im_password);
+//        User user = User.current();
+        if(deliveryman_info != null) {
+            currentUserNick = deliveryman_info.im_nickname();
+            im_login(deliveryman_info.im_id(), deliveryman_info.im_key());
+        }
     }
 
 //    private void register_receive() {
@@ -399,6 +401,15 @@ public class PaopaoOfficialDeliverymanApplication extends Application {
             }
         }
         return processName;
+    }
+
+    public void update_deliveryman_info() throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        deliveryman_info = DataProvider.deliveryman_info();
+        System.out.println("deliveryman_info im_nickname:" + deliveryman_info.im_nickname());
+    }
+
+    public DeliverymanInfo get_deliveryman_info(){
+        return deliveryman_info;
     }
 
     class MyConnectionListener implements ConnectionListener {

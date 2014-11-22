@@ -51,6 +51,7 @@ public class HttpApi {
     public static final String DELIVERYMAN_INFO = DELIVERY_SITE + "/info";
     public static final String DELIVERYMAN_WORK = DELIVERY_SITE + "/work";
     public static final String DELIVERYMAN_REST = DELIVERY_SITE + "/rest";
+    public static final String FORMAT_IM_ACCOUNTS = SITE + "/im/%s.json";
 
     /**
      * http api url end
@@ -581,6 +582,25 @@ public class HttpApi {
                 return auth.get_http_request(DELIVERYMAN_REST, "POST")
                         .accept("application/json")
                         .send("");
+            }
+        }.request();
+    }
+
+    public static String im_nickname(final String im_id)  throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<String>() {
+
+            @Override
+            public String call(RequestResult rr) {
+                System.out.println("im_accounts body:" + rr.body);
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(rr.body, JsonObject.class);
+                return jsonObject.get("im_nickname").getAsString();
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                HttpRequest request = auth.get_http_request(String.format(FORMAT_IM_ACCOUNTS, im_id), "GET");
+                return request;
             }
         }.request();
     }

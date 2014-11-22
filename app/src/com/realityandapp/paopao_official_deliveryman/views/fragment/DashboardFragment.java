@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.mindpin.android.loadingview.LoadingView;
+import com.realityandapp.paopao_official_deliveryman.PaopaoOfficialDeliverymanApplication;
 import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.http.DeliverymanInfo;
 import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
@@ -58,7 +59,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @InjectView(R.id.fatv_balance)
     FontAwesomeTextView fatv_balance;
     private Funds funds;
-    private DeliverymanInfo deliveryman_info;
+//    private DeliverymanInfo deliveryman_info;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sync_get_deliveryman_info();
+//        sync_get_deliveryman_info();
         bind_views();
     }
 
@@ -206,25 +207,8 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         rl_pending.setVisibility(View.GONE);
     }
 
-    private void sync_get_deliveryman_info() {
-        // todo maybe go to launcher is better
-        new AsyncTasks.LoadingAsyncTask<Void>(getActivity()) {
-            @Override
-            public Void call() throws Exception {
-                deliveryman_info = DataProvider.deliveryman_info();
-                return null;
-            }
-
-            @Override
-            protected void onSuccess(Void aVoid) throws Exception {
-                bind_deliveryman_info();
-                super.onSuccess(aVoid);
-            }
-        }.execute();
-    }
-
     private void bind_deliveryman_info() {
-        if (deliveryman_info.is_working())
+        if (PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info().is_working())
             show_work();
         else
             show_rest();

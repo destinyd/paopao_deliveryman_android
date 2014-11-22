@@ -54,6 +54,8 @@ import com.easemob.util.PathUtil;
 import com.easemob.util.VoiceRecorder;
 import com.realityandapp.paopao_official_deliveryman.PaopaoOfficialDeliverymanApplication;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.utils.im.CommonUtils;
 import com.realityandapp.paopao_official_deliveryman.utils.im.ImageUtils;
 import com.realityandapp.paopao_official_deliveryman.utils.im.SmileUtils;
@@ -162,6 +164,7 @@ public class ChatActivity extends PaopaoBaseActivity {
         }
     };
     private EMGroup group;
+    private String nickname;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -283,7 +286,12 @@ public class ChatActivity extends PaopaoBaseActivity {
 
         if (chatType == CHATTYPE_SINGLE) { // 单聊
             toChatUsername = getIntent().getStringExtra("userId");
-            setTitle(toChatUsername);
+            nickname = getIntent().getStringExtra("nickname");
+            if (nickname == null) {
+                setTitle(toChatUsername);
+                sync_title();
+            } else
+                setTitle(nickname);
             // set title
 //            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
             // conversation =
@@ -347,6 +355,21 @@ public class ChatActivity extends PaopaoBaseActivity {
             forwardMessage(forward_msg_id);
         }
 
+    }
+
+    private void sync_title() {
+        new PaopaoAsyncTask<String>(this) {
+            @Override
+            public String call() throws Exception {
+                return DataProvider.im_nickname(getToChatUsername());
+            }
+
+            @Override
+            protected void onSuccess(String im_nickname) throws Exception {
+                super.onSuccess(im_nickname);
+                setTitle(im_nickname);
+            }
+        }.execute();
     }
 
     /**
