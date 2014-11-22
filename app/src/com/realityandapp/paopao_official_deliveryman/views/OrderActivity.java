@@ -55,6 +55,8 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     TextView tv_user;
     @InjectView(R.id.rl_user)
     RelativeLayout rl_user;
+    @InjectView(R.id.rl_order_address)
+    RelativeLayout rl_order_address;
 
     private AlertDialog dialog_confirm;
 
@@ -133,6 +135,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         fatv_edit.setOnClickListener(this);
         fabtn_destroy.setOnClickListener(this);
         fabtn_back.setOnClickListener(this);
+        rl_order_address.setOnClickListener(this);
         boolean show = order.get_status() == Order.OrderStatus.pending;
         fatv_edit.setVisibility(show ? View.VISIBLE : View.GONE);
         fabtn_destroy.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -196,7 +199,16 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
             case R.id.rl_user:
                 go_to_im();
                 break;
+            case R.id.rl_order_address:
+                go_to_map_with_location();
+                break;
         }
+    }
+
+    private void go_to_map_with_location() {
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra(Constants.Extra.ADDRESS, order.get_address());
+        startActivity(intent);
     }
 
     private void confirm_destroy() {
