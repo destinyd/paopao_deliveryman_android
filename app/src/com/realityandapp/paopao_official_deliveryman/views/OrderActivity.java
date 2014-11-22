@@ -51,15 +51,15 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     FontAwesomeButton fabtn_back;
     @InjectView(R.id.btn_submit)
     Button btn_submit;
-    @InjectView(R.id.tv_deliveryman)
-    TextView tv_deliveryman;
-    @InjectView(R.id.rl_deliveryman)
-    RelativeLayout rl_deliveryman;
+    @InjectView(R.id.tv_user)
+    TextView tv_user;
+    @InjectView(R.id.rl_user)
+    RelativeLayout rl_user;
 
     private AlertDialog dialog_confirm;
 
-    private IOrder order;
-    private boolean need_show_scan;
+    protected IOrder order;
+    protected boolean need_show_scan;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         get_data();
     }
 
-    private void get_data() {
+    protected void get_data() {
         new PaopaoAsyncTask<Void>(this) {
 
             @Override
@@ -81,7 +81,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
             @Override
             public Void call() throws Exception {
-                order = DataProvider.deliveryman_order(order_id);
+                order = DataProvider.order(order_id);
                 return null;
             }
 
@@ -100,10 +100,10 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         }.execute();
     }
 
-    private void build_views() {
+    protected void build_views() {
         build_actionbar();
         build_status();
-        build_deliveryman();
+        build_user();
         build_total();
         build_delivery();
         build_address();
@@ -138,14 +138,14 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         fabtn_destroy.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void build_deliveryman() {
-        rl_deliveryman.setOnClickListener(this);
+    private void build_user() {
+        rl_user.setOnClickListener(this);
         System.out.println("order.get_deliveryman():" + order.get_deliveryman());
-        if (order.get_deliveryman() == null) {
-            ((View) tv_deliveryman.getParent()).setVisibility(View.GONE);
+        if (order.get_user() == null) {
+            ((View) tv_user.getParent()).setVisibility(View.GONE);
         } else {
-            tv_deliveryman.setText(order.get_deliveryman().get_realname());
-            ((View) tv_deliveryman.getParent()).setVisibility(View.VISIBLE);
+            tv_user.setText(order.get_user().get_im_nickname());
+            ((View) tv_user.getParent()).setVisibility(View.VISIBLE);
         }
     }
 
@@ -193,7 +193,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
             case R.id.btn_submit:
                 submit();
                 break;
-            case R.id.rl_deliveryman:
+            case R.id.rl_user:
                 go_to_im();
                 break;
         }
@@ -221,7 +221,8 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     private void go_to_im() {
         Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("userId", order.get_deliveryman().get_realname());
+        intent.putExtra("userId", order.get_user().get_im_id());
+        intent.putExtra("nickname", order.get_user().get_im_nickname());
         startActivity(intent);
     }
 
@@ -257,7 +258,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         });
     }
 
-    private void show_scan() {
+    protected void show_scan() {
         System.out.println("show_scan");
 //        ImageView iv_qrcode = new ImageView(this);
 //        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this)

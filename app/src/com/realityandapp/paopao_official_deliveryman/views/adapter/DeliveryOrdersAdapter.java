@@ -13,6 +13,7 @@ import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
+import com.realityandapp.paopao_official_deliveryman.views.DeliveryOrderActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrderActivity;
 
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.List;
 /**
  * Created by dd on 14-9-18.
  */
-public class MyOrdersAdapter extends OrdersAdapter {
+public class DeliveryOrdersAdapter extends OrdersAdapter {
 
-    public MyOrdersAdapter(Activity activity,
-                           final List<IOrder> items) {
+    public DeliveryOrdersAdapter(Activity activity,
+                                 final List<IOrder> items) {
         super(activity, items);
     }
 
@@ -85,9 +86,14 @@ public class MyOrdersAdapter extends OrdersAdapter {
 
     private void go_to_order_and_show_qrcode_scan(IOrder order) {
         System.out.println("go_to_order_and_show_qrcode_scan");
-        Intent intent = new Intent(activity, OrderActivity.class);
+        Intent intent = new Intent(activity, DeliveryOrderActivity.class);
         intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
         intent.putExtra(Constants.Extra.SHOW_SCAN, true);
         activity.startActivityForResult(intent, Constants.Request.ORDER);
+    }
+
+    @Override
+    protected Class<?> get_target_activity(){
+        return DeliveryOrderActivity.class;
     }
 }

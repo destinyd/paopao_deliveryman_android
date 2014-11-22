@@ -14,14 +14,11 @@ import android.widget.TextView;
 import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.PaopaoOfficialDeliverymanApplication;
 import com.realityandapp.paopao_official_deliveryman.R;
-import com.realityandapp.paopao_official_deliveryman.models.http.DeliverymanInfo;
 import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
-import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
-import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 //import com.realityandapp.paopao_official_deliveryman.views.ShopGoodsActivity;
-import com.realityandapp.paopao_official_deliveryman.views.MyOrdersActivity;
+import com.realityandapp.paopao_official_deliveryman.views.DeliveryOrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.base.PaopaoBaseFragment;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
@@ -59,7 +56,6 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @InjectView(R.id.fatv_balance)
     FontAwesomeTextView fatv_balance;
     private Funds funds;
-//    private DeliverymanInfo deliveryman_info;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +65,8 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        sync_get_deliveryman_info();
         bind_views();
+        bind_deliveryman_info();
     }
 
     private void show_rest() {
@@ -149,7 +145,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     private void go_to_my_orders() {
         System.out.println("go_to_my_orders");
-        startActivity(new Intent(getActivity(), MyOrdersActivity.class));
+        startActivity(new Intent(getActivity(), DeliveryOrdersActivity.class));
     }
 
     private void rest() {

@@ -72,11 +72,11 @@
                             android:padding="10dp"
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/white_with_bbb_bottom_border"
-                            android:id="@+id/rl_deliveryman"
+                            android:id="@+id/rl_user"
                     >
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:gravity="center_vertical"
-                          android:text="@string/order_deliveryman"
+                          android:text="@string/order_user"
                           android:id="@+id/tv_deliveryman_label"
                         />
                 <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
@@ -92,7 +92,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_deliveryman"
+                        android:id="@+id/tv_user"
                         android:gravity="center_vertical|right"
                         android:layout_toRightOf="@id/tv_deliveryman_label"
                         android:layout_toLeftOf="@id/fabtn_microphone"

@@ -134,4 +134,8 @@ public class DataProvider {
     public static String im_nickname(String im_id) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.im_nickname(im_id);
     }
+
+    public static IOrder order(String order_id)  throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.order(order_id);
+    }
 }

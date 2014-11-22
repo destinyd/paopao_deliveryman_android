@@ -9,18 +9,22 @@
                     android:id="@+id/rl_cart_to_order_goods"
                     android:padding="10dp"
             >
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="30dp"
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="20dp"
                         android:layout_alignParentTop="true"
                         android:id="@+id/rl_cart_to_order_good_data_top"
                         android:gravity="center_vertical"
                 >
-            <TextView android:layout_width="100dp" android:layout_height="match_parent"
-                      android:layout_alignParentLeft="true"
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                       android:id="@+id/tv_good_name"
                       android:gravity="center_vertical|left"
                       android:singleLine="true"
                       android:ellipsize="end"
                     />
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="20dp"
+                        android:id="@+id/rl_cart_to_order_good_data_middle"
+                        android:layout_below="@id/rl_cart_to_order_good_data_top"
+                >
             <TextView android:layout_width="80dp" android:layout_height="match_parent"
                       android:layout_alignParentRight="true"
                       android:id="@+id/tv_good_total"
@@ -30,15 +34,15 @@
                     />
             <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
                       android:id="@+id/tv_unit_price"
-                      android:gravity="right|center_vertical"
+                      android:gravity="left|center_vertical"
                       android:singleLine="true"
                       android:layout_toLeftOf="@id/tv_good_total"
-                      android:layout_toRightOf="@id/tv_good_name"
+                      android:layout_alignParentLeft="true"
                     />
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="20dp"
                         android:gravity="center_vertical"
-                        android:layout_below="@id/rl_cart_to_order_good_data_top"
+                        android:layout_below="@id/rl_cart_to_order_good_data_middle"
                 >
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:id="@+id/tv_plus"

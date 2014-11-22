@@ -79,8 +79,8 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
         }
     }
 
-    private void go_to_order(IOrder order) {
-        Intent intent = new Intent(activity, OrderActivity.class);
+    protected void go_to_order(IOrder order) {
+        Intent intent = new Intent(activity, get_target_activity());
         intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
         activity.startActivityForResult(intent, Constants.Request.ORDER);
     }
@@ -120,5 +120,9 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
         RelativeLayout relativeLayout = getView(4, RelativeLayout.class);
         relativeLayout.setTag(position);
         relativeLayout.setOnClickListener(this);
+    }
+
+    protected Class<?> get_target_activity(){
+        return OrderActivity.class;
     }
 }

@@ -24,6 +24,7 @@ public class Order implements IOrder {
     public float human_total = 0f;
     public List<CartGoodsData> order_items = new ArrayList<CartGoodsData>();
     public String to_id;
+    public HttpUser user;
 
     @Override
     public String get_shop_id() {
@@ -122,6 +123,11 @@ public class Order implements IOrder {
     @Override
     public boolean is_accepted() {
         return Order.OrderStatus.accepted == get_status() || Order.OrderStatus.system_accepted == get_status();
+    }
+
+    @Override
+    public IHttpUser get_user() {
+        return user;
     }
 
     @Override
