@@ -225,7 +225,7 @@
 		<!--baidu-->
 		<meta-data
 				android:name="com.baidu.lbsapi.API_KEY"
-				android:value="ZnjXf1geHwrWmKqtjrQb58rh" />
+				android:value="pNrGNWKiGRdqlGE23KrzqQr1" />
 
 		<!-- 开机自启动服务 -->
 		<receiver android:name="com.easemob.chat.StartServiceReceiver" >
