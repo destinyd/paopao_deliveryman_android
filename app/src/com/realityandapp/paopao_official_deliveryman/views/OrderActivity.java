@@ -22,10 +22,14 @@ import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by dd on 14-9-18.
  */
 public class OrderActivity extends PaopaoBaseActivity implements View.OnClickListener {
+    private static final java.lang.String DELIVERY_PATTERN = "\\.com/orders/(\\d+)/delivery$";
     @InjectExtra(Constants.Extra.ORDER_ID)
     public String order_id;
 
@@ -62,6 +66,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     protected IOrder order;
     protected boolean need_show_scan;
+    private String delivery_url;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,12 +109,12 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     protected void build_views() {
         build_actionbar();
-        build_status();
         build_user();
         build_total();
         build_delivery();
         build_address();
         build_cart_to_order();
+        build_status();
         build_submit();
     }
 
@@ -241,7 +246,6 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     private void submit() {
         System.out.println("submit");
         if (order.get_status() == Order.OrderStatus.paid) {
-            // todo accept()
             accept();
         } else if (order.is_accepted()) {
             take_away();
@@ -272,13 +276,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     protected void show_scan() {
         System.out.println("show_scan");
-//        ImageView iv_qrcode = new ImageView(this);
-//        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this)
-//                .setTitle("请将此二维码出示给跑跑")
-//                .setView(iv_qrcode)
-//                ;
-//        ImageLoader.getInstance().displayImage(String.format(Constants.Format.QR_CODE, order.get_id()), iv_qrcode);
-//        dialog_builder.create().show();
+        startActivityForResult(new Intent(this, ScanActivity.class), Constants.Request.QR_CODE);
     }
 
     private void go_to_edit_order() {
@@ -321,15 +319,81 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case Constants.Request.ORDER:
-                if (resultCode == RESULT_OK) {
-                    set_result_ok();
-                    get_data();
-                }
-
-                break;
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Constants.Request.ORDER:
+                    set_result_ok_and_refresh();
+                    break;
+                case Constants.Request.QR_CODE:
+                    if (data != null) {
+                        delivery_url = data.getStringExtra(Constants.Extra.QR_CODE);
+                        System.out.println("delivery_url:" + delivery_url);
+                        if (valid_delivery_url(delivery_url)) {
+                            alert_delivery();
+                        } else {
+                            Toast.makeText(this, "订单号不对，请确认订单是否相同", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    break;
+            }
         }
+    }
+
+    private void post_delivery() {
+        new AsyncTasks.LoadingAsyncTask<IOrder>(this) {
+            @Override
+            public IOrder call() throws Exception {
+                return DataProvider.delivery(delivery_url);
+            }
+
+            @Override
+            protected void onSuccess(IOrder o) throws Exception {
+                super.onSuccess(o);
+                order = o;
+                refresh_views();
+                Toast.makeText(getContext(), "提交交货信息成功", Toast.LENGTH_LONG).show();
+                set_result_ok();
+            }
+
+            @Override
+            protected void onException(Exception e) throws RuntimeException {
+                super.onException(e);
+                Toast.makeText(getContext(), "二维码不能正常访问，请确认网络是否链接", Toast.LENGTH_LONG).show();
+            }
+        }.execute();
+    }
+
+    private void refresh_views() {
+        build_status();
+        build_submit();
+    }
+
+    private void alert_delivery() {
+        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this)
+                .setTitle("订单信息正确，是否交货？")
+                .setNegativeButton("取消", null)
+                .setNeutralButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        post_delivery();
+                    }
+                });
+        dialog_confirm = dialog_builder.create();
+        dialog_confirm.show();
+    }
+
+    private boolean valid_delivery_url(String url) {
+        Pattern pattern = Pattern.compile(DELIVERY_PATTERN);
+        Matcher matcher = pattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1).equals(order.get_id());
+        }
+        return false;
+    }
+
+    private void set_result_ok_and_refresh() {
+        set_result_ok();
+        get_data();
     }
 
     private void set_result_ok() {

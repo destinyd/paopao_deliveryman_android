@@ -19,6 +19,7 @@ public class Constants {
         public static final String SHOP_NAME = "shop_name";
         public static final String SHOW_QRCORD = "show_qrcode";
         public static final String SHOW_SCAN = "show_scan";
+        public static final String QR_CODE = "qr_code";
     }
 
     public static class Request {
@@ -28,6 +29,7 @@ public class Constants {
         public static final int SHOP_CART = 14;
         public static final int USER = 1;
         public static final int SETTING = 21;
+        public static final int QR_CODE = 201;
     }
     
     public static class Format{

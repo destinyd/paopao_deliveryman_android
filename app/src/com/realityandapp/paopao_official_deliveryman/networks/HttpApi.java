@@ -624,6 +624,25 @@ public class HttpApi {
         }.request();
     }
 
+    public static IOrder delivery(final String url)  throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<IOrder>() {
+
+            @Override
+            public IOrder call(RequestResult rr) {
+                System.out.println("post delivery body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Order.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(url, "POST")
+                        .accept("application/json")
+                        .send("");
+            }
+        }.request();
+    }
+
     //////////////////
 
     /**
