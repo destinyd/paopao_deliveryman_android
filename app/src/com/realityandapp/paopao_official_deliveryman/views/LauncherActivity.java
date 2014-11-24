@@ -11,21 +11,17 @@ import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import roboguice.activity.RoboActivity;
 
 public class LauncherActivity extends RoboActivity {
-    PaopaoOfficialDeliverymanApplication application;
-    User user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launcher);
-        application = PaopaoOfficialDeliverymanApplication.getInstance();
+        if (savedInstanceState != null && !savedInstanceState.getBoolean("loaded", false)) {
+            EMChat.getInstance().setAppInited();
+            // todo init here
+            PaopaoOfficialDeliverymanApplication.getInstance().init_image_config();
+        }
 
-        EMChat.getInstance().setAppInited();
-        // todo init here
-        application.init_image_config();
-
-        user = User.current();
-        if(user != null)
+        if (User.current() != null && PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info() == null)
             get_deliveryman_info_from_http();
         else
             go_to_main();
@@ -48,11 +44,11 @@ public class LauncherActivity extends RoboActivity {
     }
 
     private void go_to_main() {
-        if(user != null) {
+        if (User.current() != null) {
             // todo
             PaopaoOfficialDeliverymanApplication.getInstance().im_login();
             startActivity(new Intent(this, RealMainActivity.class));
-        }else{
+        } else {
             startActivity(new Intent(LauncherActivity.this, SignInActivity.class));
         }
         finish();

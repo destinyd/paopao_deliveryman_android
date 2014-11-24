@@ -132,7 +132,10 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         new AsyncTasks.LoadingAsyncTask<Boolean>(getActivity()) {
             @Override
             public Boolean call() throws Exception {
-                return DataProvider.work();
+                boolean b = DataProvider.work();
+                if(b)
+                    PaopaoOfficialDeliverymanApplication.getInstance().update_deliveryman_info();
+                return b;
             }
 
             @Override
@@ -153,7 +156,10 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         new AsyncTasks.LoadingAsyncTask<Boolean>(getActivity()) {
             @Override
             public Boolean call() throws Exception {
-                return DataProvider.rest();
+                boolean b = DataProvider.rest();
+                if(b)
+                    PaopaoOfficialDeliverymanApplication.getInstance().update_deliveryman_info();
+                return b;
             }
 
             @Override

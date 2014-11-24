@@ -7,11 +7,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import com.realityandapp.paopao_official_deliveryman.Constants;
 import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.views.*;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
 import roboguice.inject.InjectView;
+
+import java.util.Calendar;
 
 /**
  * Created by dd on 14-9-18.
@@ -35,6 +38,7 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
     LinearLayout menu_settings;
     @InjectView(R.id.menu_exit)
     LinearLayout menu_exit;
+    private Calendar last_pressed_at = null;
 
     @Override
     protected void onStart() {
@@ -87,16 +91,23 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if(drawer_layout.isDrawerOpen(left_drawer)){
-                drawer_layout.closeDrawer(left_drawer);
-                return true;
-            }else{
-                alert_exit();
+    public void onBackPressed() {
+        if(drawer_layout.isDrawerOpen(left_drawer)){
+            drawer_layout.closeDrawer(left_drawer);
+        }else{
+            if(last_pressed_at != null) {
+                last_pressed_at.add(Calendar.SECOND, 3);
+                if (Calendar.getInstance().before(last_pressed_at)) {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 注意
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    this.startActivity(intent);
+                    return;
+                }
             }
+            last_pressed_at = Calendar.getInstance();
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
         }
-        return super.onKeyDown(keyCode, event);
     }
 
     private void alert_exit() {

@@ -782,4 +782,10 @@ public class RealMainActivity extends PaopaoBaseIncludeDrawerActivity {
             badge.show();
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("loaded", true);
+    }
 }
