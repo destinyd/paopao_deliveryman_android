@@ -204,7 +204,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     }
 
     private void bind_deliveryman_info() {
-        if (PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info().is_working())
+        if (PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info() != null && PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info().is_working())
             show_work();
         else
             show_rest();

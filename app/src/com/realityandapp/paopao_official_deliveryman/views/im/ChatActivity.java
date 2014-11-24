@@ -46,6 +46,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
+import com.activeandroid.query.Select;
 import com.easemob.chat.*;
 import com.easemob.chat.EMMessage.ChatType;
 import com.easemob.exceptions.EaseMobException;
@@ -54,7 +55,9 @@ import com.easemob.util.PathUtil;
 import com.easemob.util.VoiceRecorder;
 import com.realityandapp.paopao_official_deliveryman.PaopaoOfficialDeliverymanApplication;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.realityandapp.paopao_official_deliveryman.models.IMAccount;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.IMAccountUtils;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.utils.im.CommonUtils;
 import com.realityandapp.paopao_official_deliveryman.utils.im.ImageUtils;
@@ -288,6 +291,10 @@ public class ChatActivity extends PaopaoBaseActivity {
             toChatUsername = getIntent().getStringExtra("userId");
             nickname = getIntent().getStringExtra("nickname");
             if (nickname == null) {
+                if(toChatUsername.length() == 32)
+                    find_and_set_nickname(toChatUsername);
+                else
+                    setTitle(toChatUsername);
                 setTitle(toChatUsername);
                 sync_title();
             } else
@@ -355,6 +362,22 @@ public class ChatActivity extends PaopaoBaseActivity {
             forwardMessage(forward_msg_id);
         }
 
+    }
+
+    private void find_and_set_nickname(String toChatUsername) {
+        IMAccount im_account = new Select().from(IMAccount.class).where("im_id = ?", toChatUsername).executeSingle();
+        if(im_account != null)
+            setTitle(im_account.get_im_nickname());
+        else {
+            setTitle(toChatUsername);
+            new IMAccountUtils.IMAccountAsyncTask(this, toChatUsername){
+                @Override
+                protected void onSuccess(String s) throws Exception {
+                    super.onSuccess(s);
+                    setTitle(s);
+                }
+            }.execute();
+        }
     }
 
     private void sync_title() {

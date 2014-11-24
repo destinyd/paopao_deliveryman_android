@@ -22,11 +22,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
+import com.activeandroid.Model;
+import com.activeandroid.query.Select;
 import com.easemob.chat.*;
 import com.easemob.util.DateUtils;
 import com.realityandapp.paopao_official_deliveryman.IMConstant;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.realityandapp.paopao_official_deliveryman.models.IMAccount;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
+import com.realityandapp.paopao_official_deliveryman.utils.IMAccountUtils;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.utils.im.SmileUtils;
 
@@ -35,7 +39,7 @@ import java.util.List;
 
 /**
  * 显示所有聊天记录adpater
- * 
+ *
  */
 public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 
@@ -96,9 +100,10 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 			} else if (username.equals(IMConstant.NEW_FRIENDS_USERNAME)) {
 				holder.name.setText("申请与通知");
 			}
-			holder.name.setText(username);
 			if(username.length() == 32)
-				sync_name(username, holder.name);
+				build_name(username, holder.name);
+			else
+				holder.name.setText(username);
 		}
 
 		if (conversation.getUnreadMsgCount() > 0) {
@@ -126,24 +131,19 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 		return convertView;
 	}
 
-	private void sync_name(final String im_id, final TextView tv_name) {
-		new PaopaoAsyncTask<String>(getContext()) {
-			@Override
-			public String call() throws Exception {
-				return DataProvider.im_nickname(im_id);
-			}
-
-			@Override
-			protected void onSuccess(String im_nickname) throws Exception {
-				super.onSuccess(im_nickname);
-				tv_name.setText(im_nickname);
-			}
-		}.execute();
+	private void build_name(String im_id, TextView tv_name) {
+		IMAccount im_account = new Select().from(IMAccount.class).where("im_id = ?", im_id).executeSingle();
+		if(im_account != null)
+			tv_name.setText(im_account.get_im_nickname());
+        else {
+            tv_name.setText(im_id);
+            IMAccountUtils.sync_name(getContext(), im_id, tv_name);
+        }
 	}
 
 	/**
 	 * 根据消息内容和消息类型获取消息内容提示
-	 * 
+	 *
 	 * @param message
 	 * @param context
 	 * @return
