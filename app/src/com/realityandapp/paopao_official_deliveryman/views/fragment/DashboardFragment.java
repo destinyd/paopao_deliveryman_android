@@ -1,6 +1,10 @@
 package com.realityandapp.paopao_official_deliveryman.views.fragment;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +24,7 @@ import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 //import com.realityandapp.paopao_official_deliveryman.views.ShopGoodsActivity;
 import com.realityandapp.paopao_official_deliveryman.views.DeliveryOrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
+import com.realityandapp.paopao_official_deliveryman.views.RealMainActivity;
 import com.realityandapp.paopao_official_deliveryman.views.base.PaopaoBaseFragment;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView;
@@ -57,6 +62,8 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     FontAwesomeTextView fatv_balance;
     private Funds funds;
 
+    int notificationID = 10;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.dashboard, container, false);
@@ -73,6 +80,13 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         setTitle("控制面板(待命)");
         rl_working.setVisibility(View.GONE);
         rl_pending.setVisibility(View.VISIBLE);
+
+        close_notification();
+    }
+
+    private void close_notification() {
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(notificationID);
     }
 
     private void bind_views() {
@@ -133,7 +147,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
             @Override
             public Boolean call() throws Exception {
                 boolean b = DataProvider.work();
-                if(b)
+                if (b)
                     PaopaoOfficialDeliverymanApplication.getInstance().update_deliveryman_info();
                 return b;
             }
@@ -157,7 +171,7 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
             @Override
             public Boolean call() throws Exception {
                 boolean b = DataProvider.rest();
-                if(b)
+                if (b)
                     PaopaoOfficialDeliverymanApplication.getInstance().update_deliveryman_info();
                 return b;
             }
@@ -207,6 +221,32 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         setTitle("控制面板(工作中)");
         rl_working.setVisibility(View.VISIBLE);
         rl_pending.setVisibility(View.GONE);
+
+        init_notification();
+    }
+
+    private void init_notification() {
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create the notification
+        Notification notification = new Notification(R.drawable.ic_launcher, "你正处在工作状态",
+                System.currentTimeMillis());
+        notification.flags |= Notification.FLAG_ONGOING_EVENT; // 将此通知放到通知栏的"Ongoing"即"正在运行"组中
+        notification.flags |= Notification.FLAG_NO_CLEAR; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，经常与FLAG_ONGOING_EVENT一起使用
+//        notification.flags |= Notification.FLAG_SHOW_LIGHTS; // set LED on
+        // notification.defaults = Notification.DEFAULT_LIGHTS; //默认Notification lights;
+        notification.ledARGB = 0xff0000ff; // LED 颜色; 蓝色
+        notification.ledOnMS = 5000; // LED 亮时间
+
+        // Create the notification expanded message
+        // When the user clicks on it, it opens your activity
+        Intent intent = new Intent(getActivity(), RealMainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0,
+                intent, 0);
+        notification
+                .setLatestEventInfo(getActivity(), "你正处在工作状态", "配送同时，不要忘记接新单哦！", pendingIntent);
+        // Show notification
+        notificationManager.notify(notificationID, notification);
     }
 
     private void bind_deliveryman_info() {
