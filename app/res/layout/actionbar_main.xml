@@ -6,7 +6,7 @@
             style="@style/ActionBarFATV"
             android:id="@+id/fatv_menu"
             android:background="@drawable/actionbar_icon"
-            android:text="@string/fa_menu"
+            android:text="@string/fa_custom_menu"
             android:layout_alignParentLeft="true"
             />
     <LinearLayout android:layout_width="50dp" android:layout_height="50dp"

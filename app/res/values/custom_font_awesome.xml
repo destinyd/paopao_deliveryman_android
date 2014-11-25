@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fa_custom_note">@string/fa_pencil_square_o</string>
+    <string name="fa_custom_menu">@string/fa_reorder</string>
+    <string name="fa_custom_back">@string/fa_chevron_left</string>
+    <string name="fa_custom_voice">@string/fa_microphone</string>
+    <string name="fa_custom_save">@string/fa_check</string>
+    <string name="fa_custom_cancel">@string/fa_times</string>
+</resources>

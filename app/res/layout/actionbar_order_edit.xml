@@ -5,14 +5,14 @@
     <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
             style="@style/ActionBarFATV"
             android:id="@+id/fabtn_cancel"
-            android:text="@string/fa_cancel"
+            android:text="@string/fa_custom_cancel"
             android:layout_alignParentLeft="true"
             android:background="@drawable/actionbar_icon"
             />
     <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
             style="@style/ActionBarFATV"
             android:id="@+id/fatv_submit"
-            android:text="@string/fa_checkmark"
+            android:text="@string/fa_check"
             android:layout_alignParentRight="true"
             android:background="@drawable/actionbar_icon"
             />

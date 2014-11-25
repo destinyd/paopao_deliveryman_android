@@ -14,7 +14,7 @@
                 style="@style/IMInputFATV"
                 android:id="@+id/fatv_voice"
                 android:background="@drawable/actionbar_icon"
-                android:text="@string/fa_voice"
+                android:text="@string/fa_custom_voice"
                 android:layout_alignParentLeft="true"
                 />
 

@@ -5,7 +5,7 @@
     <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
             style="@style/ActionBarFATV"
             android:id="@+id/fabtn_back"
-            android:text="@string/fa_back"
+            android:text="@string/fa_custom_back"
             android:layout_alignParentLeft="true"
             android:background="@drawable/actionbar_icon"
             />

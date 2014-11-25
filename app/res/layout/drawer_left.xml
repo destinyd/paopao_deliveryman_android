@@ -40,7 +40,7 @@
             >
         <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
                 style="@style/MenuLineFATV"
-                android:text="@string/fa_note"
+                android:text="@string/fa_custom_note"
                 />
         <TextView
                 android:text="@string/my_orders"
