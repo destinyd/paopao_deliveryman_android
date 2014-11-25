@@ -44,6 +44,7 @@ public class LauncherActivity extends RoboActivity {
             @Override
             protected void onSuccess(Void aVoid) throws Exception {
                 super.onSuccess(aVoid);
+                PaopaoOfficialDeliverymanApplication.getInstance().im_login();
                 go_to_main();
             }
 
@@ -78,7 +79,7 @@ public class LauncherActivity extends RoboActivity {
 //                get_deliveryman_info_from_http();
 //                return;
 //            }
-            PaopaoOfficialDeliverymanApplication.getInstance().im_login();
+//            PaopaoOfficialDeliverymanApplication.getInstance().im_login();
             startActivity(new Intent(this, RealMainActivity.class));
         } else {
             startActivity(new Intent(LauncherActivity.this, SignInActivity.class));
