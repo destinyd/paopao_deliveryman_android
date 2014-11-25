@@ -22,6 +22,7 @@ import com.realityandapp.paopao_official_deliveryman.models.http.Funds;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 //import com.realityandapp.paopao_official_deliveryman.views.ShopGoodsActivity;
+import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.views.DeliveryOrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
 import com.realityandapp.paopao_official_deliveryman.views.RealMainActivity;
@@ -73,7 +74,26 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bind_views();
-        bind_deliveryman_info();
+        if(PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info() == null)
+            get_data();
+        else
+            bind_deliveryman_info();
+    }
+
+    private void get_data() {
+        new PaopaoAsyncTask<Void>(getActivity()) {
+            @Override
+            public Void call() throws Exception {
+                PaopaoOfficialDeliverymanApplication.getInstance().update_deliveryman_info();
+                return null;
+            }
+
+            @Override
+            protected void onSuccess(Void aVoid) throws Exception {
+                super.onSuccess(aVoid);
+                bind_deliveryman_info();
+            }
+        }.execute();
     }
 
     private void show_rest() {

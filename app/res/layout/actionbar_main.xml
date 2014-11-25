@@ -28,9 +28,9 @@
             >
         <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
                 style="@style/ActionBarFATV"
-                android:id="@+id/fabtn_shops"
+                android:id="@+id/fabtn_dashboard"
                 android:background="@drawable/actionbar_icon"
-                android:text="@string/fa_cart"
+                android:text="@string/fa_dashboard"
                 />
     </LinearLayout>
 

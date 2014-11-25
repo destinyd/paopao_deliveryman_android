@@ -119,7 +119,7 @@ public class RealMainActivity extends PaopaoBaseIncludeDrawerActivity {
 //		mTabs[0].setSelected(true);
 
         findViewById(R.id.fabtn_messages).setOnClickListener(this);
-        findViewById(R.id.fabtn_shops).setOnClickListener(this);
+        findViewById(R.id.fabtn_dashboard).setOnClickListener(this);
         badge = new BadgeView(this, fabtn_messages);
         badge.setTextSize(getResources().getDimensionPixelSize(R.dimen.cart_badge_text_size));
     }
@@ -741,7 +741,7 @@ public class RealMainActivity extends PaopaoBaseIncludeDrawerActivity {
 //                startActivity(intent);
                 index = 1;
                 break;
-            case R.id.fabtn_shops:
+            case R.id.fabtn_dashboard:
                 index = 0;
                 refresh_unread_msgs_count();
                 break;

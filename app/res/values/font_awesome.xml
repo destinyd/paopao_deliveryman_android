@@ -38,4 +38,5 @@
     <string name="fa_envelope_o">&#xf003;</string>
     <string name="fa_calendar">&#xf073;</string>
     <string name="fa_tasks">&#xf0ae;</string>
+    <string name="fa_dashboard">&#xf0e4;</string>
 </resources>
