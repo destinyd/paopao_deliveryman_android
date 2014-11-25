@@ -26,10 +26,10 @@ public class LauncherActivity extends RoboActivity {
             PaopaoOfficialDeliverymanApplication.getInstance().init_image_config();
         }
 //
-//        if (User.current() != null && PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info() == null)
-//            get_deliveryman_info_from_http();
-//        else
-        go_to_main();
+        if (User.current() != null && PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info() == null)
+            get_deliveryman_info_from_http();
+        else
+            go_to_main();
     }
 
     private void get_deliveryman_info_from_http() {
@@ -37,7 +37,7 @@ public class LauncherActivity extends RoboActivity {
             @Override
             public Void call() throws Exception {
                 PaopaoOfficialDeliverymanApplication.getInstance().update_deliveryman_info();
-                PaopaoOfficialDeliverymanApplication.getInstance().im_login();
+//                PaopaoOfficialDeliverymanApplication.getInstance().im_login();
                 return null;
             }
 
@@ -74,10 +74,11 @@ public class LauncherActivity extends RoboActivity {
     private void go_to_main() {
         if (User.current() != null) {
             // todo
-            if (TextUtils.isEmpty(PaopaoOfficialDeliverymanApplication.getInstance().getUserName())) {
-                get_deliveryman_info_from_http();
-                return;
-            }
+//            if (TextUtils.isEmpty(PaopaoOfficialDeliverymanApplication.getInstance().getUserName())) {
+//                get_deliveryman_info_from_http();
+//                return;
+//            }
+            PaopaoOfficialDeliverymanApplication.getInstance().im_login();
             startActivity(new Intent(this, RealMainActivity.class));
         } else {
             startActivity(new Intent(LauncherActivity.this, SignInActivity.class));

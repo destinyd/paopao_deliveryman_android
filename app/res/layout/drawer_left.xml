@@ -17,7 +17,7 @@
                 android:text="@string/fa_home"
                 />
         <TextView
-                android:text="@string/la_carte"
+                android:text="@string/home"
                 style="@style/MenuLineTV"/>
     </LinearLayout>
 
@@ -47,18 +47,6 @@
                 style="@style/MenuLineTV"/>
     </LinearLayout>
 
-    <LinearLayout
-            android:id="@+id/menu_addresses"
-            style="@style/MenuLine"
-            >
-        <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
-                style="@style/MenuLineFATV"
-                android:text="@string/fa_map_marker"
-                />
-        <TextView
-                android:text="@string/my_addresses"
-                style="@style/MenuLineTV"/>
-    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/menu_settings"

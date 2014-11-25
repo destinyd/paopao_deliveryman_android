@@ -32,8 +32,6 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
 //    LinearLayout menu_favorites;
     @InjectView(R.id.menu_orders)
     LinearLayout menu_orders;
-    @InjectView(R.id.menu_addresses)
-    LinearLayout menu_addresses;
     @InjectView(R.id.menu_settings)
     LinearLayout menu_settings;
     @InjectView(R.id.menu_exit)
@@ -51,7 +49,6 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
         menu_home.setOnClickListener(this);
 //        menu_favorites.setOnClickListener(this);
         menu_orders.setOnClickListener(this);
-        menu_addresses.setOnClickListener(this);
         menu_settings.setOnClickListener(this);
         menu_exit.setOnClickListener(this);
     }
@@ -71,16 +68,11 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
                     finish();
                 }
                 break;
-//            case R.id.menu_favorites:
-//                break;
             case R.id.menu_orders:
-//                startActivity(new Intent(this, OrdersActivity.class));
-                break;
-            case R.id.menu_addresses:
-//                startActivity(new Intent(this, AddressesActivity.class));
+                startActivity(new Intent(this, DeliveryOrderActivity.class));
                 break;
             case R.id.menu_settings:
-//                startActivityForResult(new Intent(this, SettingsActivity.class), Constants.Request.SETTING);
+                startActivityForResult(new Intent(this, SettingsActivity.class), Constants.Request.SETTING);
                 break;
             case R.id.menu_exit:
                 alert_exit();

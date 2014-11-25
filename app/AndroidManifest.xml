@@ -101,6 +101,7 @@
 		<activity android:name=".views.DeliveryOrderActivity"/>
 		<activity android:name=".views.MapActivity"/>
 		<activity android:name=".views.ScanActivity"/>
+		<activity android:name=".views.SettingsActivity"/>
 
         <!--im start-->
 		<activity android:name=".views.im.ChatActivity"
