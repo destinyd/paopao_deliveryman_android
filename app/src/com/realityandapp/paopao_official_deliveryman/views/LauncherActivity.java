@@ -32,7 +32,6 @@ public class LauncherActivity extends RoboActivity {
     protected void onStart() {
         super.onStart();
 
-
         if(!loaded) {
             load();
         }

@@ -44,6 +44,22 @@ public class AsyncTasks {
         }.execute();
     }
 
+    static public void delivery(final Activity activity, final IOrder order, final OnSuccessListener listener) {
+        System.out.println("take_away");
+        new OrderAsyncTask(activity, listener) {
+            @Override
+            public IOrder call() throws Exception {
+                return DataProvider.delivery_with_id(order.get_id());
+            }
+
+            @Override
+            protected void onSuccess(IOrder order) throws Exception {
+                Toast.makeText(getContext(), "成功提交交货", Toast.LENGTH_LONG).show();
+                super.onSuccess(order);
+            }
+        }.execute();
+    }
+
     static public abstract class OrderAsyncTask extends PaopaoAsyncTask<IOrder>{
         final LoadingView loading_view;
         private final OnSuccessListener listener;

@@ -53,6 +53,7 @@ public class HttpApi {
     public static final String DELIVERYMAN_REST = DELIVERY_SITE + "/rest";
     public static final String FORMAT_IM_ACCOUNTS = SITE + "/im/%s.json";
     public static final String FORMAT_ORDER = SITE + "/orders/%s.json";
+    public static final String FORMAT_DELIVERY_ORDER = DELIVERY_SITE + "/orders/%s/delivery.json";
 
     /**
      * http api url end
@@ -637,6 +638,25 @@ public class HttpApi {
             @Override
             public HttpRequest build_request(AuthenticatorsController auth) {
                 return auth.get_http_request(url, "POST")
+                        .accept("application/json")
+                        .send("");
+            }
+        }.request();
+    }
+    
+    public static IOrder delivery_with_id(final String order_id)  throws RequestDataErrorException, AuthErrorException, NetworkErrorException {
+        return new RequestProcess<IOrder>() {
+
+            @Override
+            public IOrder call(RequestResult rr) {
+                System.out.println("post delivery body:" + rr.body);
+                Gson gson = new Gson();
+                return gson.fromJson(rr.body, Order.class);
+            }
+
+            @Override
+            public HttpRequest build_request(AuthenticatorsController auth) {
+                return auth.get_http_request(String.format(FORMAT_DELIVERY_ORDER, order_id), "POST")
                         .accept("application/json")
                         .send("");
             }

@@ -125,7 +125,8 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         } else if (order.is_accepted()) {
             set_btn_submit("取货");
         } else if (order.get_status() == Order.OrderStatus.took_away) {
-            set_btn_submit("扫码交货");
+//            set_btn_submit("扫码交货");
+            set_btn_submit("交货");
         } else {
             btn_submit.setVisibility(View.INVISIBLE);
         }
@@ -275,8 +276,20 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     }
 
     protected void show_scan() {
-        System.out.println("show_scan");
-        startActivityForResult(new Intent(this, ScanActivity.class), Constants.Request.QR_CODE);
+//        System.out.println("show_scan");
+//        startActivityForResult(new Intent(this, ScanActivity.class), Constants.Request.QR_CODE);
+
+        delivery();
+    }
+
+    private void delivery() {
+        System.out.println("delivery");
+        AsyncTasks.delivery(this, order, new AsyncTasks.OnSuccessListener() {
+            @Override
+            public void run() {
+                get_data();
+            }
+        });
     }
 
     private void go_to_edit_order() {

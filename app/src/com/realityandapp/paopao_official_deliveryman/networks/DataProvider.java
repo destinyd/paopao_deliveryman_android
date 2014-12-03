@@ -142,4 +142,8 @@ public class DataProvider {
     public static IOrder delivery(String url) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
         return HttpApi.delivery(url);
     }
+
+    public static IOrder delivery_with_id(String order_id) throws HttpApi.RequestDataErrorException, HttpApi.AuthErrorException, HttpApi.NetworkErrorException {
+        return HttpApi.delivery_with_id(order_id);
+    }
 }

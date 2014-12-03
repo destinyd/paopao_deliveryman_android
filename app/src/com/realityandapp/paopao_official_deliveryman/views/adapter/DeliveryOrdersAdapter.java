@@ -34,7 +34,8 @@ public class DeliveryOrdersAdapter extends OrdersAdapter {
             setText(3, "取货");
             getView(3, Button.class).setVisibility(View.VISIBLE);
         } else if (Order.OrderStatus.took_away == order.get_status()) {
-            setText(3, "扫码交货");
+//            setText(3, "扫码交货");
+            setText(3, "交货");
             getView(3, Button.class).setVisibility(View.VISIBLE);
         } else {
             getView(3, Button.class).setVisibility(View.INVISIBLE);
@@ -85,11 +86,23 @@ public class DeliveryOrdersAdapter extends OrdersAdapter {
     }
 
     private void go_to_order_and_show_qrcode_scan(IOrder order) {
-        System.out.println("go_to_order_and_show_qrcode_scan");
-        Intent intent = new Intent(activity, DeliveryOrderActivity.class);
-        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
-        intent.putExtra(Constants.Extra.SHOW_SCAN, true);
-        activity.startActivityForResult(intent, Constants.Request.ORDER);
+//        System.out.println("go_to_order_and_show_qrcode_scan");
+//        Intent intent = new Intent(activity, DeliveryOrderActivity.class);
+//        intent.putExtra(Constants.Extra.ORDER_ID, order.get_id());
+//        intent.putExtra(Constants.Extra.SHOW_SCAN, true);
+//        activity.startActivityForResult(intent, Constants.Request.ORDER);
+
+        delivery(order);
+    }
+
+    private void delivery(IOrder order) {
+            System.out.println("delivery");
+            AsyncTasks.delivery(activity, order, new AsyncTasks.OnSuccessListener() {
+                @Override
+                public void run() {
+                    refresh_activity();
+                }
+            });
     }
 
     @Override
