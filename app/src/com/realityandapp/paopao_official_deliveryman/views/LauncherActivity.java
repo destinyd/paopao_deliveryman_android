@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import com.baidu.mapapi.SDKInitializer;
 import com.easemob.chat.EMChat;
 import com.realityandapp.paopao_official_deliveryman.PaopaoOfficialDeliverymanApplication;
 import com.realityandapp.paopao_official_deliveryman.R;
@@ -15,21 +16,38 @@ import roboguice.activity.RoboActivity;
 
 public class LauncherActivity extends RoboActivity {
     private AlertDialog alertDialog;
+    private boolean loaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launcher);
-        if (savedInstanceState != null && !savedInstanceState.getBoolean("loaded", false)) {
-            EMChat.getInstance().setAppInited();
-            // todo init here
-            PaopaoOfficialDeliverymanApplication.getInstance().init_image_config();
+
+        if (savedInstanceState != null && savedInstanceState.getBoolean("loaded", false)) {
+            loaded = true;
         }
-//
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        if(!loaded) {
+            load();
+        }
+
         if (User.current() != null && PaopaoOfficialDeliverymanApplication.getInstance().get_deliveryman_info() == null)
             get_deliveryman_info_from_http();
         else
             go_to_main();
+
+    }
+
+    private void load() {
+        EMChat.getInstance().setAppInited();
+        PaopaoOfficialDeliverymanApplication.getInstance().init_image_config();
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     private void get_deliveryman_info_from_http() {
@@ -74,12 +92,6 @@ public class LauncherActivity extends RoboActivity {
 
     private void go_to_main() {
         if (User.current() != null) {
-            // todo
-//            if (TextUtils.isEmpty(PaopaoOfficialDeliverymanApplication.getInstance().getUserName())) {
-//                get_deliveryman_info_from_http();
-//                return;
-//            }
-//            PaopaoOfficialDeliverymanApplication.getInstance().im_login();
             startActivity(new Intent(this, RealMainActivity.class));
         } else {
             startActivity(new Intent(LauncherActivity.this, SignInActivity.class));

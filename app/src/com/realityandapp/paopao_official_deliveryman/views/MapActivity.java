@@ -27,7 +27,6 @@ public class MapActivity extends PaopaoBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // todo change to application if use baidu map other place
-        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.map);
         mBaiduMap = bmapView.getMap();
         //构建Marker图标

@@ -143,8 +143,7 @@ public class PaopaoOfficialDeliverymanApplication extends Application {
 
         // 获取到EMChatOptions对象
         EMChatOptions options = EMChatManager.getInstance().getChatOptions();
-        // 默认添加好友时，是不需要验证的，改成需要验证
-        // todo true don't need accept
+        // 默认添加好友时，是不需要验证的
         options.setAcceptInvitationAlways(true);
         // 设置收到消息是否有声音提示，默认为true
         options.setNoticeBySound(PreferenceUtils.getInstance(applicationContext).getSettingMsgSound());
