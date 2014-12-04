@@ -24,10 +24,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_toLeftOf="@id/btn_action"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
                 >
             <TextView
-                    android:id="@+id/order_shop_name"
+                    android:id="@+id/tv_order_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
@@ -37,7 +37,7 @@
                     android:textStyle="bold"
                     />
             <TextView
-                    android:id="@+id/order_status"
+                    android:id="@+id/tv_order_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -47,12 +47,12 @@
                     android:textSize="12dp"
                     />
             <TextView
-                    android:id="@+id/order_desc"
+                    android:id="@+id/tv_order_sent_to_before_at"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:layout_above="@id/order_status"
-                    android:layout_below="@id/order_shop_name"
+                    android:layout_above="@id/tv_order_status"
+                    android:layout_below="@id/tv_order_title"
                     android:textStyle="italic"
                     android:textSize="12dp"
                     />

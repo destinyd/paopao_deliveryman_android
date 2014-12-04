@@ -45,5 +45,6 @@ public class Constants {
         public static final String DISTANCT = "%d米";
         public static final String VERIFY_CODE_TIMEOUT = "%d后可以重新发送";
         public static final String QR_CODE = HttpApi.USER_SITE + "/orders/%s/qrcode";
+        public static final String ORDER_LIST_NAME = "%s(%s)";
     }
 }

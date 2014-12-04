@@ -6,16 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import com.github.kevinsawicki.wishlist.SingleTypeAdapter;
 import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.Constants;
 import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.http.Order;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
-import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
-import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
 import com.realityandapp.paopao_official_deliveryman.views.OrderActivity;
 import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
 //import com.realityandapp.paopao_official_deliveryman.views.OrderActivity;
@@ -44,15 +41,15 @@ public class OrdersAdapter extends SingleTypeAdapter<IOrder> implements View.OnC
     @Override
     protected int[] getChildViewIds() {
         return new int[]{
-                R.id.order_shop_name, R.id.order_status, R.id.order_desc, R.id.btn_action, R.id.rl_order
+                R.id.tv_order_title, R.id.tv_order_status, R.id.tv_order_sent_to_before_at, R.id.btn_action, R.id.rl_order
         };
     }
 
     @Override
     protected void update(int position, IOrder item) {
-        setText(0, item.get_shop_name());
+        setText(0, String.format(Constants.Format.ORDER_LIST_NAME, item.get_shop_name(), item.get_total()));
         setText(1, item.get_str_status());
-        setText(2, String.format(Constants.Format.ORDER_DESC, item.get_total()));
+        setText(2, item.get_human_sent_to_before_at());
         update_btn_action(item);
     }
 
