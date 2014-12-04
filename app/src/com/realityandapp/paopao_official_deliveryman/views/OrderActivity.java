@@ -3,6 +3,7 @@ package com.realityandapp.paopao_official_deliveryman.views;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -61,6 +62,8 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     TextView tv_user;
     @InjectView(R.id.rl_user)
     RelativeLayout rl_user;
+    @InjectView(R.id.rl_contact)
+    RelativeLayout rl_contact;
     @InjectView(R.id.rl_order_address)
     RelativeLayout rl_order_address;
 
@@ -144,6 +147,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         fabtn_destroy.setOnClickListener(this);
         fabtn_back.setOnClickListener(this);
         rl_order_address.setOnClickListener(this);
+        rl_contact.setOnClickListener(this);
         boolean show = order.get_status() == Order.OrderStatus.pending;
         fatv_edit.setVisibility(show ? View.VISIBLE : View.GONE);
         fabtn_destroy.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -211,7 +215,16 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
             case R.id.rl_order_address:
                 go_to_map_with_location();
                 break;
+            case R.id.rl_contact:
+                go_to_phone_call();
+                break;
         }
+    }
+
+    private void go_to_phone_call() {
+        Uri uri = Uri.parse("tel:" + order.get_address().get_phone());
+        Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+        startActivity(intent);
     }
 
     private void go_to_map_with_location() {

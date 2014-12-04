@@ -104,14 +104,14 @@
                           android:id="@+id/tv_deliveryman_label"
                         />
                 <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
-                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_width="20dp" android:layout_height="match_parent"
                         android:textSize="20dp"
                         android:id="@+id/fabtn_microphone"
                         android:text="@string/fa_microphone"
                         android:textColor="@color/tv_highlight"
                         android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
-                        android:gravity="center"
+                        android:gravity="center_vertical|right"
                         />
                 <TextView
                         android:layout_width="wrap_content"
@@ -135,24 +135,24 @@
             </ListView>
 
             <!--<RelativeLayout android:layout_width="match_parent" android:layout_height="40dp"-->
-                            <!--android:background="@drawable/white_with_bbb_bottom_border"-->
-                            <!--android:padding="10dp"-->
-                            <!--android:layout_gravity="center_vertical"-->
-                    <!-->-->
-                <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-                          <!--android:gravity="center_vertical"-->
-                          <!--android:text="@string/delivery_type"-->
-                          <!--android:id="@+id/tv_delivery_type_label"-->
-                          <!--android:layout_alignParentLeft="true"-->
-                        <!--/>-->
-                <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-                          <!--android:gravity="center_vertical|right"-->
-                          <!--android:text="@string/delivery_type_system"-->
-                          <!--android:textColor="@color/tv_highlight"-->
-                          <!--android:id="@+id/tv_delivery_type"-->
-                          <!--android:layout_alignParentRight="true"-->
-                          <!--android:layout_toRightOf="@id/tv_delivery_type_label"-->
-                        <!--/>-->
+            <!--android:background="@drawable/white_with_bbb_bottom_border"-->
+            <!--android:padding="10dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!-->-->
+            <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/delivery_type"-->
+            <!--android:id="@+id/tv_delivery_type_label"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--/>-->
+            <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="@string/delivery_type_system"-->
+            <!--android:textColor="@color/tv_highlight"-->
+            <!--android:id="@+id/tv_delivery_type"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_toRightOf="@id/tv_delivery_type_label"-->
+            <!--/>-->
             <!--</RelativeLayout>-->
 
             <RelativeLayout android:layout_width="match_parent" android:layout_height="40dp"
@@ -178,38 +178,49 @@
 
 
             <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:id="@+id/rl_contact"
+                            android:background="@drawable/white_with_bbb_bottom_border"
+                            android:padding="10dp"
+                    >
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/fatv_contact_phone"
+                        android:text="@string/fa_phone"
+                        android:textSize="20dp"
+                        android:textColor="@color/tv_highlight"
+                        />
+                <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                          android:gravity="center_vertical|left"
+                          android:singleLine="true"
+                          android:layout_alignParentLeft="true"
+                          android:id="@+id/tv_contact"
+                          android:layout_toLeftOf="@id/fatv_contact_phone"
+                        />
+            </RelativeLayout>
+
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:id="@+id/rl_order_address"
                             android:background="@drawable/white_with_bbb_bottom_border"
                             android:padding="10dp"
                     >
-                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:id="@+id/rl_order_address_contact"
-                                android:gravity="center_vertical"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginBottom="10dp"
-                        >
-                    <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentRight="true"
-                            android:id="@+id/fatv_address_location"
-                            android:text="@string/fa_map_marker"
-                            android:textSize="20dp"
-                            android:textColor="@color/tv_highlight"
-                            />
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
-                              android:gravity="center_vertical|left"
-                              android:singleLine="true"
-                              android:layout_alignParentLeft="true"
-                              android:id="@+id/tv_contact"
-                              android:layout_toLeftOf="@id/fatv_address_location"
-                            />
-                </RelativeLayout>
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/fatv_address_location"
+                        android:text="@string/fa_map_marker"
+                        android:textSize="20dp"
+                        android:textColor="@color/tv_highlight"
+                        />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:gravity="center_vertical|left"
                           android:id="@+id/tv_address"
                           android:layout_alignParentBottom="true"
-                          android:layout_below="@id/rl_order_address_contact"
+                          android:layout_toLeftOf="@id/fatv_address_location"
+                          android:layout_alignParentLeft="true"
                         />
             </RelativeLayout>
         </LinearLayout>
