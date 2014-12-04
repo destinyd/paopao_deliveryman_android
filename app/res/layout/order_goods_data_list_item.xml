@@ -43,6 +43,7 @@
         <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
                         android:gravity="center_vertical"
                         android:layout_below="@id/rl_cart_to_order_good_data_middle"
+                        android:id="@+id/rl_order_plus"
                 >
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:id="@+id/tv_plus"
