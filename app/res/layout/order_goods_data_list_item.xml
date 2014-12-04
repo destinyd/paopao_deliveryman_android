@@ -40,7 +40,7 @@
                       android:layout_alignParentLeft="true"
                     />
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="20dp"
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
                         android:gravity="center_vertical"
                         android:layout_below="@id/rl_cart_to_order_good_data_middle"
                 >
