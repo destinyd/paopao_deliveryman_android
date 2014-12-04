@@ -68,6 +68,30 @@
                         />
             </RelativeLayout>
 
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="40dp"
+                            android:padding="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/white_with_bbb_bottom_border"
+                            android:id="@+id/rl_sent_to_before_at"
+                    >
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:gravity="center_vertical"
+                          android:text="@string/sent_to_before_at_label"
+                          android:id="@+id/tv_sent_to_before_at_label"
+                        />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_sent_to_before_at"
+                        android:gravity="center_vertical|right"
+                        android:layout_toRightOf="@id/tv_sent_to_before_at_label"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        />
+            </RelativeLayout>
+
             <RelativeLayout android:layout_width="match_parent" android:layout_height="40dp"
                             android:padding="10dp"
                             android:layout_gravity="center_vertical"

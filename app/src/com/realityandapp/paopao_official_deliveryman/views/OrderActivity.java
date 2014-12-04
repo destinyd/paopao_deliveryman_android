@@ -45,6 +45,8 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     TextView tv_address;
     @InjectView(R.id.tv_order_status)
     TextView tv_order_status;
+    @InjectView(R.id.tv_sent_to_before_at)
+    TextView tv_sent_to_before_at;
     @InjectView(R.id.lv_order_goods_data)
     ListView lv_order_goods_data;
     @InjectView(R.id.fatv_destroy)
@@ -163,6 +165,7 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     }
 
     private void build_delivery() {
+        tv_sent_to_before_at.setText(order.get_human_sent_to_before_at());
         tv_delivery_price.setText(String.format(Constants.Format.PRICE, order.get_delivery_price()));
     }
 

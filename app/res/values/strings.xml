@@ -57,6 +57,7 @@
     <string name="params_email">Email</string>
     <string name="order_user">用户名称</string>
     <string name="home">首页</string>
+    <string name="sent_to_before_at_label">预订送达时间</string>
 
 
 </resources>

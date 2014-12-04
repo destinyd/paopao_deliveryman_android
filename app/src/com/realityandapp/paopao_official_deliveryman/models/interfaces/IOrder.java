@@ -3,6 +3,7 @@ package com.realityandapp.paopao_official_deliveryman.models.interfaces;
 import com.realityandapp.paopao_official_deliveryman.models.http.CartGoodsData;
 import com.realityandapp.paopao_official_deliveryman.networks.HttpApi;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public interface IOrder extends IBase {
     public String get_to_id();
     public boolean is_accepted();
     public IHttpUser get_user();
+    public String get_human_sent_to_before_at();
 
     public interface IOrderStatus {
     }

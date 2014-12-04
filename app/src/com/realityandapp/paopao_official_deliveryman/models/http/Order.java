@@ -24,6 +24,7 @@ public class Order implements IOrder {
     public float human_total = 0f;
     public List<CartGoodsData> order_items = new ArrayList<CartGoodsData>();
     public String to_id;
+    public String human_sent_to_before_at;
     public HttpUser user;
 
     @Override
@@ -128,6 +129,11 @@ public class Order implements IOrder {
     @Override
     public IHttpUser get_user() {
         return user;
+    }
+
+    @Override
+    public String get_human_sent_to_before_at() {
+        return human_sent_to_before_at;
     }
 
     @Override
