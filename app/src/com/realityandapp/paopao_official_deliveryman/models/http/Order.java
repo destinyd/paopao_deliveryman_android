@@ -38,6 +38,11 @@ public class Order implements IOrder {
     }
 
     @Override
+    public IShop get_shop() {
+        return shop;
+    }
+
+    @Override
     public int get_distance() {
         return distance;
     }

@@ -11,4 +11,6 @@ public interface IShop extends IBase {
     public java.util.List<Float> get_coordinates();
     public boolean is_shop_delivery();
     public String get_avatar();
+    public Float get_latitude();
+    public Float get_longitude();
 }

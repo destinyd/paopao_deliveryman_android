@@ -12,6 +12,7 @@ import java.util.List;
 public interface IOrder extends IBase {
     public String get_shop_id();
     public String get_shop_name();
+    public IShop get_shop();
     public int get_distance();
     public List<CartGoodsData> get_order_items();
     public float get_delivery_price();

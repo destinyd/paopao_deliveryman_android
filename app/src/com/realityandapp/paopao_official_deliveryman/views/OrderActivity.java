@@ -5,13 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
 import com.mindpin.android.loadingview.LoadingView;
 import com.realityandapp.paopao_official_deliveryman.Constants;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.realityandapp.paopao_official_deliveryman.models.http.Address;
 import com.realityandapp.paopao_official_deliveryman.models.http.Order;
 import com.realityandapp.paopao_official_deliveryman.models.interfaces.IOrder;
+import com.realityandapp.paopao_official_deliveryman.models.interfaces.IShop;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.ListViewUtils;
@@ -67,6 +70,15 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     @InjectView(R.id.rl_order_address)
     RelativeLayout rl_order_address;
 
+    @InjectView(R.id.rl_shop_address)
+    RelativeLayout rl_shop_address;
+    @InjectView(R.id.rl_shop)
+    RelativeLayout rl_shop;
+    @InjectView(R.id.tv_shop_contact)
+    TextView tv_shop_contact;
+    @InjectView(R.id.tv_shop_address)
+    TextView tv_shop_address;
+
     private AlertDialog dialog_confirm;
 
     protected IOrder order;
@@ -121,6 +133,19 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         build_cart_to_order();
         build_status();
         build_submit();
+        build_shop();
+    }
+
+    private void build_shop() {
+        IShop shop = order.get_shop();
+        if(shop != null) {
+            tv_shop_address.setText(shop.get_address());
+            tv_shop_contact.setText(String.format(Constants.Format.CONTACT, shop.get_name(), TextUtils.isEmpty(shop.get_contact()) ? "暂无联系方式" : shop.get_contact()));
+            rl_shop_address.setOnClickListener(this);
+        }else{
+            rl_shop.setVisibility(View.GONE);
+            rl_shop_address.setVisibility(View.GONE);
+        }
     }
 
     private void build_submit() {
@@ -218,7 +243,19 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
             case R.id.rl_contact:
                 go_to_phone_call();
                 break;
+            case R.id.rl_shop_address:
+                go_to_map_with_shop_location();
+                break;
         }
+    }
+
+    private void go_to_map_with_shop_location() {
+        Address address = new Address();
+        address.set_latitude(order.get_shop().get_latitude());
+        address.set_longitude(order.get_shop().get_longitude());
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra(Constants.Extra.ADDRESS, address);
+        startActivity(intent);
     }
 
     private void go_to_phone_call() {

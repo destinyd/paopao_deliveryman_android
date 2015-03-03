@@ -17,6 +17,8 @@ public class Shop implements IShop {
     public boolean is_shop_delivery;
     public List<Float> coordinates;
     public Uploader avatar;
+    public Float latitude;
+    public Float longitude;
 
 //    public Shop() {
 //        i++;
@@ -61,6 +63,16 @@ public class Shop implements IShop {
     public String get_avatar() {
 //        return "http://meishipaopao.dev.realityandapp.com/assets/noface_android.png";
         return avatar.get_default();
+    }
+
+    @Override
+    public Float get_latitude() {
+        return latitude;
+    }
+
+    @Override
+    public Float get_longitude() {
+        return longitude;
     }
 
     @Override
