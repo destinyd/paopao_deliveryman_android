@@ -77,6 +77,14 @@ public class LauncherActivity extends RoboActivity {
                                 finish();
                             }
                         })
+                        .setNeutralButton("重新登录", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                User.delete_all();
+                                startActivity(new Intent(LauncherActivity.this, SignInActivity.class));
+                                finish();
+                            }
+                        })
                         .setOnCancelListener(new DialogInterface.OnCancelListener() {
                             @Override
                             public void onCancel(DialogInterface dialog) {
