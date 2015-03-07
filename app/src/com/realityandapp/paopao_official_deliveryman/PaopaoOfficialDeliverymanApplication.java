@@ -375,7 +375,7 @@ public class PaopaoOfficialDeliverymanApplication extends Application {
         // reset password to null
         setPassword(null);
         setContactList(null);
-
+        User.delete_all();
     }
 
     private String getAppName(int pID) {

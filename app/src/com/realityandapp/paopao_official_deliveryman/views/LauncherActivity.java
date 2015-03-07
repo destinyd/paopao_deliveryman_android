@@ -80,7 +80,7 @@ public class LauncherActivity extends RoboActivity {
                         .setNeutralButton("重新登录", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                User.delete_all();
+                                PaopaoOfficialDeliverymanApplication.getInstance().logout();
                                 startActivity(new Intent(LauncherActivity.this, SignInActivity.class));
                                 finish();
                             }
