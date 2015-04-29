@@ -6,11 +6,16 @@ import com.realityandapp.paopao_official_deliveryman.models.interfaces.IFunds;
  * Created by dd on 14-11-18.
  */
 public class Funds implements IFunds {
-    public Float balance, today, yesterday, month, last_month;
+    public Float balance, today, yesterday, month, last_month, user_balance;
 
     @Override
     public Float get_balance() {
         return balance;
+    }
+
+    @Override
+    public Float get_user_balance() {
+        return user_balance;
     }
 
     @Override

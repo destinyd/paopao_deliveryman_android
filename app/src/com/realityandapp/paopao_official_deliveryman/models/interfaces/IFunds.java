@@ -5,6 +5,7 @@ package com.realityandapp.paopao_official_deliveryman.models.interfaces;
  */
 public interface IFunds extends IBase {
     public Float get_balance();
+    public Float get_user_balance();
     public Float get_today();
     public Float get_yesterday();
     public Float get_month();

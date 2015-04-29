@@ -59,6 +59,8 @@
     <string name="home">首页</string>
     <string name="sent_to_before_at_label">预订送达时间</string>
     <string name="pack_fees">打包费</string>
+    <string name="label_dashboard_middle_right">运费余额：</string>
+    <string name="label_dashboard_middle_left">货款余额：</string>
 
 
 </resources>

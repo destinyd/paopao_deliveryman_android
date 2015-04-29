@@ -28,7 +28,7 @@
                           android:clickable="true"
                     >
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="今日收入:"
+                          android:text="@string/label_dashboard_middle_left"
                         />
                 <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
                         android:layout_width="match_parent" android:layout_height="match_parent"
@@ -36,7 +36,7 @@
                         android:text="@string/fa_refresh"
                         android:background="@android:color/transparent"
                         android:textSize="50dp"
-                        android:id="@+id/fatv_today"
+                        android:id="@+id/fatv_user_balance"
                         />
             </LinearLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
@@ -47,7 +47,7 @@
                           android:clickable="true"
                     >
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="总余额:"
+                          android:text="@string/label_dashboard_middle_right"
                         />
                 <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
                         android:layout_width="match_parent" android:layout_height="match_parent"
@@ -55,7 +55,7 @@
                         android:text="@string/fa_refresh"
                         android:background="@android:color/transparent"
                         android:textSize="50dp"
-                        android:id="@+id/fatv_balance"
+                        android:id="@+id/fatv_deliveryman_balance"
                         />
             </LinearLayout>
         </LinearLayout>

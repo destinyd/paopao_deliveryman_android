@@ -57,10 +57,10 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     @InjectView(R.id.tv_come_off_work)
     TextView tv_come_off_work;
-    @InjectView(R.id.fatv_today)
-    FontAwesomeTextView fatv_today;
-    @InjectView(R.id.fatv_balance)
-    FontAwesomeTextView fatv_balance;
+    @InjectView(R.id.fatv_user_balance)
+    FontAwesomeTextView fatv_user_balance;
+    @InjectView(R.id.fatv_deliveryman_balance)
+    FontAwesomeTextView fatv_deliveryman_balance;
     private Funds funds;
 
     int notificationID = 10;
@@ -232,8 +232,8 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
 
     private void today_income_to_view() {
         System.out.println(funds);
-        fatv_today.setText(String.valueOf(funds.get_today()));
-        fatv_balance.setText(String.valueOf(funds.get_balance()));
+        fatv_user_balance.setText(String.valueOf(funds.get_user_balance()));
+        fatv_deliveryman_balance.setText(String.valueOf(funds.get_balance()));
     }
 
     private void show_work() {
