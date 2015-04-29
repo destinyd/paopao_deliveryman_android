@@ -44,10 +44,10 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     LinearLayout ll_refresh_funds;
     @InjectView(R.id.ll_refresh_today_income)
     LinearLayout ll_refresh_today_income;
-    @InjectView(R.id.fa_btn_notices)
-    FontAwesomeButton fa_btn_notices;
-    @InjectView(R.id.fa_btn_orders)
-    FontAwesomeButton fa_btn_orders;
+    @InjectView(R.id.rl_wait_deal_orders)
+    RelativeLayout rl_wait_deal_orders;
+    @InjectView(R.id.rl_deliveryman_orders)
+    RelativeLayout rl_deliveryman_orders;
     //    @InjectView(R.id.fa_btn_my_orders)
 //    FontAwesomeTextView fa_btn_my_orders;
     @InjectView(R.id.rl_pending)
@@ -55,8 +55,8 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     @InjectView(R.id.rl_working)
     RelativeLayout rl_working;
 
-    @InjectView(R.id.tv_come_off_work)
-    TextView tv_come_off_work;
+    @InjectView(R.id.btn_come_off_work)
+    Button btn_come_off_work;
     @InjectView(R.id.fatv_user_balance)
     FontAwesomeTextView fatv_user_balance;
     @InjectView(R.id.fatv_deliveryman_balance)
@@ -113,10 +113,10 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
         btn_start_work.setOnClickListener(this);
         ll_refresh_funds.setOnClickListener(this);
         ll_refresh_today_income.setOnClickListener(this);
-        fa_btn_notices.setOnClickListener(this);
-        fa_btn_orders.setOnClickListener(this);
-        tv_come_off_work.setOnClickListener(this);
-        rl_working.setOnClickListener(this);
+//        fa_btn_notices.setOnClickListener(this);
+        rl_wait_deal_orders.setOnClickListener(this);
+        btn_come_off_work.setOnClickListener(this);
+        rl_deliveryman_orders.setOnClickListener(this);
     }
 
     @Override
@@ -131,16 +131,13 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
             case R.id.ll_refresh_today_income:
                 refresh_funds();
                 break;
-            case R.id.fa_btn_notices:
-                go_to_notices();
-                break;
-            case R.id.fa_btn_orders:
+            case R.id.rl_wait_deal_orders:
                 go_to_orders();
                 break;
-            case R.id.tv_come_off_work:
+            case R.id.btn_come_off_work:
                 alert_rest();
                 break;
-            case R.id.rl_working:
+            case R.id.rl_deliveryman_orders:
                 go_to_my_orders();
                 break;
         }
@@ -207,10 +204,6 @@ public class DashboardFragment extends PaopaoBaseFragment implements View.OnClic
     private void go_to_orders() {
         System.out.println("go_to_orders");
         startActivity(new Intent(getActivity(), OrdersActivity.class));
-    }
-
-    private void go_to_notices() {
-        System.out.println("go_to_notices");
     }
 
     private void refresh_funds() {

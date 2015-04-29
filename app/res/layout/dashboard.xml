@@ -79,22 +79,13 @@
                             android:visibility="gone"
                             android:clickable="true"
                     >
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="下班了?"
-                          android:textColor="@color/tv_highlight"
-                          android:layout_alignParentRight="true"
-                          android:layout_alignParentBottom="true"
-                          android:id="@+id/tv_come_off_work"
-                        />
-                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fa_tasks"
-                        android:textSize="50dp"
-                        android:textColor="@color/tv_highlight"
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:text="我要下班，请关闭各种通知！"
+                        android:textSize="20dp"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/btn_come_off_work"
                         android:layout_centerInParent="true"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/fa_btn_my_orders"
                         />
             </RelativeLayout>
         </RelativeLayout>
@@ -103,22 +94,56 @@
                       android:weightSum="2"
                       android:orientation="horizontal"
                 >
-            <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
-                    android:layout_width="0dp" android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/fa_envelope_o"
-                    android:background="@drawable/white_with_bbb_border"
-                    android:textSize="50dp"
-                    android:id="@+id/fa_btn_notices"
-                    />
-            <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
-                    android:layout_width="0dp" android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/fa_calendar"
-                    android:background="@drawable/white_with_bbb_border"
-                    android:textSize="50dp"
-                    android:id="@+id/fa_btn_orders"
-                    />
+            <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_with_bbb_border"
+                            android:id="@+id/rl_deliveryman_orders"
+                            android:clickable="true"
+
+    >
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_tasks"
+                        android:textSize="50dp"
+                        android:textColor="@color/tv_highlight"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/fa_btn_deliveryman_orders"
+                        />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="@string/deliveryman_orders"
+                          android:textColor="@color/tv_highlight"
+                          android:layout_below="@id/fa_btn_deliveryman_orders"
+                          android:layout_centerHorizontal="true"
+                          android:id="@+id/label_deliveryman_orders"
+                        />
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_with_bbb_border"
+                            android:id="@+id/rl_wait_deal_orders"
+                            android:clickable="true"
+                    >
+                <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_calendar"
+                        android:background="@android:color/transparent"
+                        android:textSize="50dp"
+                        android:id="@+id/fa_btn_orders"
+                        android:layout_centerInParent="true"
+                        android:clickable="false"
+                        />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="@string/wait_deal_orders"
+                          android:layout_below="@id/fa_btn_orders"
+                          android:layout_centerHorizontal="true"
+                          android:id="@+id/label_wait_deal_orders"
+                        />
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

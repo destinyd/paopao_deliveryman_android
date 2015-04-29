@@ -61,6 +61,8 @@
     <string name="pack_fees">打包费</string>
     <string name="label_dashboard_middle_right">运费余额：</string>
     <string name="label_dashboard_middle_left">货款余额：</string>
+    <string name="deliveryman_orders">已接订单</string>
+    <string name="wait_deal_orders">待处理订单</string>
 
 
 </resources>
