@@ -1,5 +1,6 @@
 package com.realityandapp.paopao_official_deliveryman.views;
 
+import android.os.Bundle;
 import com.realityandapp.paopao_official_deliveryman.networks.DataProvider;
 import com.realityandapp.paopao_official_deliveryman.networks.HttpApi;
 import com.realityandapp.paopao_official_deliveryman.views.adapter.DeliveryOrdersAdapter;
@@ -18,5 +19,11 @@ public class DeliveryOrdersActivity extends OrdersActivity {
         final DeliveryOrdersAdapter adapter =
                 new DeliveryOrdersAdapter(this, orders);
         lv_orders.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("已接订单");
     }
 }

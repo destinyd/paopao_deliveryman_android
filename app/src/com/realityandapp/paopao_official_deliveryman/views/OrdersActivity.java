@@ -35,7 +35,7 @@ public class OrdersActivity extends PaopaoBaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.orders);
 
-        setTitle("我的订单");
+        setTitle("待处理订单");
         init_views();
         get_datas();
     }

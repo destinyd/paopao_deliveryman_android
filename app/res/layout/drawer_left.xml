@@ -35,18 +35,30 @@
     <!--</LinearLayout>-->
 
     <LinearLayout
-            android:id="@+id/menu_orders"
+            android:id="@+id/menu_deliveryman_orders"
             style="@style/MenuLine"
             >
         <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
                 style="@style/MenuLineFATV"
-                android:text="@string/fa_custom_note"
+                android:text="@string/fa_tasks"
                 />
         <TextView
-                android:text="@string/my_orders"
+                android:text="@string/deliveryman_orders"
                 style="@style/MenuLineTV"/>
     </LinearLayout>
 
+    <LinearLayout
+            android:id="@+id/menu_wait_deal_orders"
+            style="@style/MenuLine"
+            >
+        <com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeTextView
+                style="@style/MenuLineFATV"
+                android:text="@string/fa_calendar"
+                />
+        <TextView
+                android:text="@string/wait_deal_orders"
+                style="@style/MenuLineTV"/>
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/menu_settings"

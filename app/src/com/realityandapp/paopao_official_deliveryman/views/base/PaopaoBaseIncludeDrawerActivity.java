@@ -4,13 +4,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.realityandapp.paopao_official_deliveryman.Constants;
 import com.realityandapp.paopao_official_deliveryman.R;
-import com.realityandapp.paopao_official_deliveryman.views.*;
+import com.realityandapp.paopao_official_deliveryman.views.DeliveryOrdersActivity;
+import com.realityandapp.paopao_official_deliveryman.views.OrdersActivity;
+import com.realityandapp.paopao_official_deliveryman.views.RealMainActivity;
+import com.realityandapp.paopao_official_deliveryman.views.SettingsActivity;
 import com.realityandapp.paopao_official_deliveryman.widget.FontAwesomeButton;
 import roboguice.inject.InjectView;
 
@@ -30,8 +32,10 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
     LinearLayout menu_home;
 //    @InjectView(R.id.menu_favorites)
 //    LinearLayout menu_favorites;
-    @InjectView(R.id.menu_orders)
-    LinearLayout menu_orders;
+    @InjectView(R.id.menu_deliveryman_orders)
+    LinearLayout menu_deliveryman_orders;
+    @InjectView(R.id.menu_wait_deal_orders)
+    LinearLayout menu_wait_deal_orders;
     @InjectView(R.id.menu_settings)
     LinearLayout menu_settings;
     @InjectView(R.id.menu_exit)
@@ -48,7 +52,8 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
         fatv_menu.setOnClickListener(this);
         menu_home.setOnClickListener(this);
 //        menu_favorites.setOnClickListener(this);
-        menu_orders.setOnClickListener(this);
+        menu_deliveryman_orders.setOnClickListener(this);
+        menu_wait_deal_orders.setOnClickListener(this);
         menu_settings.setOnClickListener(this);
         menu_exit.setOnClickListener(this);
     }
@@ -68,8 +73,11 @@ public class PaopaoBaseIncludeDrawerActivity extends PaopaoBaseActivity {
                     finish();
                 }
                 break;
-            case R.id.menu_orders:
-                startActivity(new Intent(this, DeliveryOrderActivity.class));
+            case R.id.menu_deliveryman_orders:
+                startActivity(new Intent(this, DeliveryOrdersActivity.class));
+                break;
+            case R.id.menu_wait_deal_orders:
+                startActivity(new Intent(this, OrdersActivity.class));
                 break;
             case R.id.menu_settings:
                 startActivityForResult(new Intent(this, SettingsActivity.class), Constants.Request.SETTING);

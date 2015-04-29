@@ -29,7 +29,6 @@
     <string name="create_address">新建地址</string>
     <string name="new_address_hint">输入地址,在下拉框选择您所在位置</string>
     <string name="dian">点</string>
-    <string name="my_orders">我的订单</string>
     <string name="my_addresses">我的地址薄</string>
     <string name="exit">退出</string>
     <string name="setting">设置</string>
