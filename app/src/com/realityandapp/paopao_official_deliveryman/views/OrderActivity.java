@@ -78,6 +78,8 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
     TextView tv_shop_contact;
     @InjectView(R.id.tv_shop_address)
     TextView tv_shop_address;
+    @InjectView(R.id.tv_pack_fees)
+    TextView tv_pack_fees;
 
     private AlertDialog dialog_confirm;
 
@@ -128,12 +130,17 @@ public class OrderActivity extends PaopaoBaseActivity implements View.OnClickLis
         build_actionbar();
         build_user();
         build_total();
+        build_pack_fees();
         build_delivery();
         build_address();
         build_cart_to_order();
         build_status();
         build_submit();
         build_shop();
+    }
+
+    private void build_pack_fees() {
+        tv_pack_fees.setText(String.format(Constants.Format.PRICE, order.get_pack_fees()));
     }
 
     private void build_shop() {

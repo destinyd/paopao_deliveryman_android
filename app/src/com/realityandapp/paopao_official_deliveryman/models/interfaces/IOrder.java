@@ -30,6 +30,7 @@ public interface IOrder extends IBase {
     public boolean is_accepted();
     public IHttpUser get_user();
     public String get_human_sent_to_before_at();
+    public float get_pack_fees();
 
     public interface IOrderStatus {
     }

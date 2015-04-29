@@ -26,6 +26,7 @@ public class Order implements IOrder {
     public String to_id;
     public String human_sent_to_before_at;
     public HttpUser user;
+    public float pack_fees = 0f;
 
     @Override
     public String get_shop_id() {
@@ -139,6 +140,11 @@ public class Order implements IOrder {
     @Override
     public String get_human_sent_to_before_at() {
         return human_sent_to_before_at;
+    }
+
+    @Override
+    public float get_pack_fees() {
+        return pack_fees;
     }
 
     @Override
