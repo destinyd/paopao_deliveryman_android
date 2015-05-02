@@ -12,6 +12,8 @@ import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.User;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UpdateConfig;
 import roboguice.activity.RoboActivity;
 
 public class LauncherActivity extends RoboActivity {
@@ -22,6 +24,9 @@ public class LauncherActivity extends RoboActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launcher);
+        UpdateConfig.setDebug(true);
+        // 静默下载更新 wifi
+        UmengUpdateAgent.silentUpdate(this);
 
         if (savedInstanceState != null && savedInstanceState.getBoolean("loaded", false)) {
             loaded = true;
