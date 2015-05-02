@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.easemob.chat.EMChatManager;
 import com.realityandapp.paopao_official_deliveryman.R;
+import com.umeng.message.PushAgent;
 import roboguice.activity.RoboFragmentActivity;
 
 /**
@@ -14,6 +15,7 @@ public class PaopaoBaseActivity extends RoboFragmentActivity implements View.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushAgent.getInstance(this).onAppStart();
     }
 
     @Override

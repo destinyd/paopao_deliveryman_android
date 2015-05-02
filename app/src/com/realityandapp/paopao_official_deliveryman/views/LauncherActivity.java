@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import com.baidu.mapapi.SDKInitializer;
 import com.easemob.chat.EMChat;
 import com.realityandapp.paopao_official_deliveryman.PaopaoOfficialDeliverymanApplication;
@@ -12,6 +13,8 @@ import com.realityandapp.paopao_official_deliveryman.R;
 import com.realityandapp.paopao_official_deliveryman.models.User;
 import com.realityandapp.paopao_official_deliveryman.utils.AsyncTasks;
 import com.realityandapp.paopao_official_deliveryman.utils.PaopaoAsyncTask;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UpdateConfig;
 import roboguice.activity.RoboActivity;
@@ -27,6 +30,11 @@ public class LauncherActivity extends RoboActivity {
         UpdateConfig.setDebug(true);
         // 静默下载更新 wifi
         UmengUpdateAgent.silentUpdate(this);
+
+        //
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.enable();
+        mPushAgent.onAppStart();
 
         if (savedInstanceState != null && savedInstanceState.getBoolean("loaded", false)) {
             loaded = true;
